@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>tableside — v1 screen mockups</title>
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.2.4/dist/index.global.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  :where(.grid, .flex) > * { min-width: 0; }
+  :where(p, h1, h2, h3, h4, li, td, th) { overflow-wrap: anywhere; }
+  :where(img, svg) { max-width: 100%; height: auto; }
+  body { font-family: 'Inter', system-ui, sans-serif; margin: 0; background: #f4f4f5; color: #18181b; }
+  .serif { font-family: 'Playfair Display', Georgia, serif; }
+  .frame { border-radius: 14px; overflow: hidden; border: 1px solid #d4d4d8; box-shadow: 0 8px 30px rgba(0,0,0,.08); background: #fff; }
+  .chrome { display:flex; align-items:center; gap:8px; padding: 9px 14px; background:#e9e9eb; border-bottom:1px solid #d4d4d8; }
+  .dot { width:10px; height:10px; border-radius:50%; }
+  .urlbar { flex:1; background:#fff; border:1px solid #d4d4d8; border-radius:8px; padding: 4px 12px; font-size:12px; color:#52525b; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .note { font-size: 13px; color:#52525b; line-height: 1.55; }
+  .tag { display:inline-block; font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:#b45309; }
+</style>
+</head>
+<body>
+<div class="mx-auto max-w-5xl px-5 py-12">
+
+  <p class="tag">tableside · v1 mockups</p>
+  <h1 class="mt-1 text-3xl font-black tracking-tight">The five screens of the loop</h1>
+  <p class="note mt-2 max-w-2xl">Diner finds the site → orders &amp; pays → the counter tablet accepts with an ETA → diner picks up. Every screen below is built in the app's real design system — this is what the running product looks like, seeded with the demo restaurant <strong>Golden Poppy Kitchen</strong>.</p>
+
+  <!-- ============ 1. LANDING ============ -->
+  <section class="mt-12">
+    <h2 class="text-lg font-bold">1 · Platform landing — the pitch</h2>
+    <p class="note mb-3">Leads with economics ("no commissions"), closes with speed. One CTA: generate my site.</p>
+    <div class="frame">
+      <div class="chrome"><span class="dot bg-red-400"></span><span class="dot bg-amber-400"></span><span class="dot bg-green-400"></span><span class="urlbar">tableside.example</span></div>
+      <div class="bg-white px-8 py-10">
+        <div class="flex items-center justify-between">
+          <span class="text-base font-black tracking-tight">▲ tableside</span>
+          <span class="rounded-full bg-zinc-900 px-4 py-2 text-xs font-semibold text-white">Get started free</span>
+        </div>
+        <div class="py-12 text-center">
+          <h3 class="text-4xl font-black tracking-tight leading-tight">Stop paying 30% to own<br>your own customers.</h3>
+          <p class="mx-auto mt-4 max-w-md text-zinc-600">A website with online ordering and reservations, generated from a photo of your menu. Flat pricing. Your data. Live today.</p>
+          <div class="mt-6 flex justify-center gap-3">
+            <span class="rounded-full bg-zinc-900 px-6 py-3 text-sm font-semibold text-white">Generate my site</span>
+            <span class="rounded-full border border-zinc-300 px-6 py-3 text-sm font-semibold">Pricing</span>
+          </div>
+          <p class="mt-8 text-sm text-zinc-500">$50/mo + 50¢ per order — <em>a fixed fee, never a percentage</em></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 2. TENANT SITE ============ -->
+  <section class="mt-14">
+    <h2 class="text-lg font-bold">2 · Generated diner site — “classic” template</h2>
+    <p class="note mb-3">Lives at <code>golden-poppy.tableside.example</code>. The AI read this menu from a photo, wrote the hero line, and picked the template + accent to match the cuisine.</p>
+    <div class="frame">
+      <div class="chrome"><span class="dot bg-red-400"></span><span class="dot bg-amber-400"></span><span class="dot bg-green-400"></span><span class="urlbar">golden-poppy.tableside.example</span></div>
+      <div style="background:#faf7f2; color:#1f1a15;">
+        <div class="flex items-center justify-between border-b px-8 py-4" style="border-color:#e7e0d6;">
+          <span class="serif text-lg font-semibold">Golden Poppy Kitchen</span>
+          <span class="flex gap-2">
+            <span class="rounded-full px-4 py-2 text-xs font-semibold text-white" style="background:#b45309;">Order pickup</span>
+            <span class="rounded-full border px-4 py-2 text-xs font-medium" style="border-color:#e7e0d6;">Reserve</span>
+          </span>
+        </div>
+        <div class="px-8 py-12 text-center">
+          <p class="tag">California-Mediterranean</p>
+          <h3 class="serif mt-2 text-4xl font-bold">Golden Poppy Kitchen</h3>
+          <p class="mx-auto mt-3 max-w-md" style="color:#6f665c;">Wood-fired, seasonal, and made from scratch every morning.</p>
+        </div>
+        <div class="px-8 pb-10">
+          <p class="tag mb-2">Mains</p>
+          <div class="space-y-2">
+            <div class="flex items-baseline justify-between rounded-xl border bg-white p-4" style="border-color:#e7e0d6;">
+              <span><span class="font-semibold">Harissa Half Chicken</span><br><span class="text-sm" style="color:#6f665c;">Wood-roasted half chicken, harissa glaze, herbed rice</span></span>
+              <span class="font-semibold">$24.00</span>
+            </div>
+            <div class="flex items-baseline justify-between rounded-xl border bg-white p-4" style="border-color:#e7e0d6;">
+              <span><span class="font-semibold">Poppy Smash Burger</span><br><span class="text-sm" style="color:#6f665c;">Double patty, aged cheddar, poppy-seed bun, fries</span></span>
+              <span class="font-semibold">$18.00</span>
+            </div>
+            <div class="flex items-baseline justify-between rounded-xl border bg-white p-4 opacity-50" style="border-color:#e7e0d6;">
+              <span><span class="font-semibold">Grilled Salmon Plate <span class="ml-1 text-xs font-medium" style="color:#6f665c;">sold out today</span></span><br><span class="text-sm" style="color:#6f665c;">King salmon, charred lemon, farro, salsa verde</span></span>
+              <span class="font-semibold">$26.00</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-4 grid gap-3 sm:grid-cols-3">
+      <div class="frame p-4" style="background:#faf7f2;">
+        <p class="serif font-semibold" style="color:#1f1a15;">Classic</p>
+        <p class="text-xs" style="color:#6f665c;">Warm · serif · family spots</p>
+        <span class="mt-2 inline-block rounded-full px-3 py-1 text-xs font-semibold text-white" style="background:#b45309;">Order pickup</span>
+      </div>
+      <div class="frame p-4" style="background:#16130f;">
+        <p class="serif font-semibold" style="color:#f3ede4;">Bistro</p>
+        <p class="text-xs" style="color:#a89e90;">Dark · elegant · date-night</p>
+        <span class="mt-2 inline-block rounded-full px-3 py-1 text-xs font-semibold text-white" style="background:#9f1239;">Order pickup</span>
+      </div>
+      <div class="frame p-4" style="background:#fffdf5;">
+        <p class="font-extrabold tracking-tight" style="color:#141414;">Bold</p>
+        <p class="text-xs" style="color:#5c5c5c;">Bright · punchy · fast-casual</p>
+        <span class="mt-2 inline-block rounded-full px-3 py-1 text-xs font-semibold text-white" style="background:#0d9488;">Order pickup</span>
+      </div>
+    </div>
+    <p class="note mt-2">The three curated templates — the AI picks one and an accent color; owners can override in settings. No freeform AI layouts, ever.</p>
+  </section>
+
+  <!-- ============ 3. CHECKOUT ============ -->
+  <section class="mt-14">
+    <h2 class="text-lg font-bold">3 · Ordering — prepaid pickup with tip presets</h2>
+    <p class="note mb-3">Guest checkout: name + phone only. Tips go 100% to the restaurant and say so. Pay button is the only path — no pay-at-counter.</p>
+    <div class="frame">
+      <div class="chrome"><span class="dot bg-red-400"></span><span class="dot bg-amber-400"></span><span class="dot bg-green-400"></span><span class="urlbar">golden-poppy.tableside.example/order</span></div>
+      <div class="grid gap-6 px-8 py-8 lg:grid-cols-[1fr_290px]" style="background:#faf7f2; color:#1f1a15;">
+        <div>
+          <p class="tag mb-2">Mains</p>
+          <div class="space-y-2">
+            <div class="flex items-center justify-between rounded-xl border bg-white p-3" style="border-color:#e7e0d6;">
+              <span><span class="font-semibold">Harissa Half Chicken</span><br><span class="text-sm" style="color:#6f665c;">$24.00</span></span>
+              <span class="flex items-center gap-3 rounded-full px-3 py-1 text-white" style="background:#b45309;"><span>−</span><span class="text-sm font-bold">1</span><span>+</span></span>
+            </div>
+            <div class="flex items-center justify-between rounded-xl border bg-white p-3" style="border-color:#e7e0d6;">
+              <span><span class="font-semibold">Poppy Smash Burger</span><br><span class="text-sm" style="color:#6f665c;">$18.00</span></span>
+              <span class="rounded-full border px-4 py-1.5 text-sm font-semibold" style="border-color:#b45309; color:#b45309;">Add</span>
+            </div>
+          </div>
+        </div>
+        <div class="rounded-2xl border bg-white p-5" style="border-color:#e7e0d6;">
+          <p class="mb-3 font-bold">Your order</p>
+          <p class="flex justify-between text-sm"><span>1× Harissa Half Chicken</span><span>$24.00</span></p>
+          <p class="tag mt-4 mb-1" style="font-size:10px;">Tip (100% goes to the restaurant)</p>
+          <div class="flex gap-1.5">
+            <span class="flex-1 rounded-lg border px-2 py-1.5 text-center text-xs font-semibold" style="border-color:#e7e0d6;">15%</span>
+            <span class="flex-1 rounded-lg px-2 py-1.5 text-center text-xs font-semibold text-white" style="background:#b45309;">18%</span>
+            <span class="flex-1 rounded-lg border px-2 py-1.5 text-center text-xs font-semibold" style="border-color:#e7e0d6;">20%</span>
+            <span class="flex-1 rounded-lg border px-2 py-1.5 text-center text-xs font-semibold" style="border-color:#e7e0d6;">None</span>
+          </div>
+          <div class="mt-3 space-y-1 border-t pt-3 text-sm" style="border-color:#e7e0d6;">
+            <p class="flex justify-between"><span>Subtotal</span><span>$24.00</span></p>
+            <p class="flex justify-between"><span>Tax</span><span>$0.00</span></p>
+            <p class="flex justify-between"><span>Tip</span><span>$4.32</span></p>
+            <p class="flex justify-between font-bold"><span>Total</span><span>$28.32</span></p>
+          </div>
+          <div class="mt-3 space-y-1.5">
+            <div class="rounded-lg border px-3 py-2 text-sm" style="border-color:#e7e0d6; color:#6f665c;">Dana A.</div>
+            <div class="rounded-lg border px-3 py-2 text-sm" style="border-color:#e7e0d6; color:#6f665c;">(503) 555-0182</div>
+            <label class="flex items-start gap-2 text-xs" style="color:#6f665c;"><input type="checkbox" checked class="mt-0.5"> The restaurant may text me about future offers.</label>
+          </div>
+          <div class="mt-3 rounded-full py-2.5 text-center text-sm font-semibold text-white" style="background:#b45309;">Pay $28.32</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 4. ORDER STATUS ============ -->
+  <section class="mt-14">
+    <h2 class="text-lg font-bold">4 · Live order status — what the diner watches</h2>
+    <p class="note mb-3">Auto-refreshes every 5s; every state change also arrives by SMS. The big code is what they show at the counter.</p>
+    <div class="grid gap-4 sm:grid-cols-2">
+      <div class="frame">
+        <div class="chrome"><span class="dot bg-red-400"></span><span class="dot bg-amber-400"></span><span class="dot bg-green-400"></span><span class="urlbar">…/order/9b2f · confirmed</span></div>
+        <div class="px-6 py-10 text-center" style="background:#faf7f2; color:#1f1a15;">
+          <p class="tag">Order K7PM</p>
+          <h3 class="serif mt-1 text-2xl font-bold">Confirmed — the kitchen is on it</h3>
+          <p class="mt-1 text-sm" style="color:#6f665c;">We'll text you when it's ready to pick up.</p>
+          <span class="mt-4 inline-block rounded-full px-5 py-2 text-sm font-semibold text-white" style="background:#b45309;">Ready in about 20 min</span>
+        </div>
+      </div>
+      <div class="frame">
+        <div class="chrome"><span class="dot bg-red-400"></span><span class="dot bg-amber-400"></span><span class="dot bg-green-400"></span><span class="urlbar">…/order/9b2f · ready</span></div>
+        <div class="px-6 py-10 text-center" style="background:#faf7f2; color:#1f1a15;">
+          <p class="tag">Order K7PM</p>
+          <h3 class="serif mt-1 text-2xl font-bold">Ready for pickup!</h3>
+          <p class="mt-1 text-sm" style="color:#6f665c;">Show your order code at the counter.</p>
+          <span class="mt-4 inline-block rounded-2xl px-8 py-3 text-3xl font-black tracking-widest text-white" style="background:#b45309;">K7PM</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 5. COUNTER TABLET ============ -->
+  <section class="mt-14">
+    <h2 class="text-lg font-bold">5 · Counter tablet PWA — where the restaurant lives</h2>
+    <p class="note mb-3">Installable, dark, built for a rush. New orders glow amber with the auto-refund countdown; accept = one tap + a time. The 86 board and pause switch are one tap away.</p>
+    <div class="frame" style="border-color:#3f3f46;">
+      <div class="chrome" style="background:#27272a; border-color:#3f3f46;"><span class="dot bg-red-400"></span><span class="dot bg-amber-400"></span><span class="dot bg-green-400"></span><span class="urlbar" style="background:#18181b; border-color:#3f3f46; color:#a1a1aa;">tableside.example/counter/golden-poppy · installed app</span></div>
+      <div class="bg-zinc-950 p-6 text-zinc-100">
+        <div class="mb-5 flex items-center justify-between">
+          <span><span class="font-bold">Golden Poppy Kitchen</span><br><span class="text-xs text-zinc-400">Counter</span></span>
+          <span class="flex gap-2 text-xs">
+            <span class="rounded-lg bg-zinc-100 px-3 py-2 font-semibold text-zinc-950">Orders (1)</span>
+            <span class="rounded-lg bg-zinc-800 px-3 py-2 font-semibold">86 board</span>
+            <span class="rounded-lg bg-zinc-800 px-3 py-2 font-bold text-zinc-300">Pause ordering</span>
+          </span>
+        </div>
+        <div class="grid gap-4 md:grid-cols-3">
+          <div>
+            <p class="mb-2 text-xs font-bold uppercase tracking-wider text-amber-400">New (1)</p>
+            <div class="rounded-xl border border-amber-400 bg-amber-500/10 p-4">
+              <div class="flex items-baseline justify-between"><span class="text-xl font-black tracking-widest">K7PM</span><span class="text-xs text-zinc-400">Dana A. · 2m ago</span></div>
+              <p class="mt-2 text-sm"><b>1×</b> Harissa Half Chicken</p>
+              <p class="mt-1 rounded bg-zinc-800 px-2 py-1 text-xs text-amber-200">“no cilantro please”</p>
+              <p class="mt-2 text-xs text-zinc-400">$28.32 · tip $4.32</p>
+              <div class="mt-3 flex gap-2 text-sm">
+                <span class="flex-1 rounded-lg bg-emerald-600 py-2.5 text-center font-bold">Accept — pick time</span>
+                <span class="rounded-lg border border-red-500 px-3 py-2.5 font-semibold text-red-400">Decline</span>
+              </div>
+              <div class="mt-2 flex gap-1.5 text-xs">
+                <span class="rounded bg-emerald-700/60 px-2.5 py-1.5 font-bold">10m</span>
+                <span class="rounded bg-emerald-700/60 px-2.5 py-1.5 font-bold">15m</span>
+                <span class="rounded bg-emerald-600 px-2.5 py-1.5 font-bold ring-1 ring-emerald-300">20m</span>
+                <span class="rounded bg-emerald-700/60 px-2.5 py-1.5 font-bold">30m</span>
+                <span class="rounded bg-emerald-700/60 px-2.5 py-1.5 font-bold">45m</span>
+              </div>
+            </div>
+          </div>
+          <div>
+            <p class="mb-2 text-xs font-bold uppercase tracking-wider text-emerald-400">In progress (1)</p>
+            <div class="rounded-xl border border-zinc-700 bg-zinc-900 p-4">
+              <div class="flex items-baseline justify-between"><span class="text-xl font-black tracking-widest">C3XW</span><span class="text-xs text-zinc-400">Marcus · 11m ago</span></div>
+              <p class="mt-2 text-sm"><b>2×</b> Poppy Smash Burger</p>
+              <p class="mt-1 text-sm"><b>1×</b> House Lemonade</p>
+              <span class="mt-3 block rounded-lg bg-sky-600 py-2.5 text-center text-sm font-bold">Mark ready (quoted 15m)</span>
+            </div>
+          </div>
+          <div>
+            <p class="mb-2 text-xs font-bold uppercase tracking-wider text-sky-400">Ready (1)</p>
+            <div class="rounded-xl border border-zinc-700 bg-zinc-900 p-4">
+              <div class="flex items-baseline justify-between"><span class="text-xl font-black tracking-widest">TQ2N</span><span class="text-xs text-zinc-400">Priya · 24m ago</span></div>
+              <p class="mt-2 text-sm"><b>1×</b> Wild Mushroom Tagine</p>
+              <span class="mt-3 block rounded-lg bg-zinc-700 py-2.5 text-center text-sm font-bold">Picked up</span>
+            </div>
+          </div>
+        </div>
+        <p class="mt-4 text-xs text-zinc-500">If a new order sits unaccepted for 15 min → automatic full refund + apology text. Money never sits against a silent kitchen.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 6. DASHBOARD ============ -->
+  <section class="mt-14">
+    <h2 class="text-lg font-bold">6 · Owner dashboard — the back office</h2>
+    <p class="note mb-3">Overview, menu editor, settings (hours, tax, template), and the customer list — consent-flagged, exportable, theirs.</p>
+    <div class="frame">
+      <div class="chrome"><span class="dot bg-red-400"></span><span class="dot bg-amber-400"></span><span class="dot bg-green-400"></span><span class="urlbar">tableside.example/dashboard/golden-poppy</span></div>
+      <div class="bg-zinc-50">
+        <div class="border-b border-zinc-200 bg-white px-7 pt-5">
+          <div class="flex items-center justify-between">
+            <span><span class="text-lg font-bold">Golden Poppy Kitchen</span><br><span class="text-sm text-zinc-500">Owner dashboard</span></span>
+            <span class="flex gap-2 text-xs"><span class="rounded-lg border border-zinc-300 px-3 py-2 font-medium">View site ↗</span><span class="rounded-lg bg-zinc-900 px-3 py-2 font-medium text-white">Open counter</span></span>
+          </div>
+          <div class="mt-3 flex gap-1 text-sm">
+            <span class="rounded-t-lg border border-b-0 border-zinc-200 bg-zinc-50 px-4 py-2 font-medium">Overview</span>
+            <span class="px-4 py-2 text-zinc-500">Menu</span>
+            <span class="px-4 py-2 text-zinc-500">Settings</span>
+            <span class="px-4 py-2 text-zinc-500">Customers</span>
+          </div>
+        </div>
+        <div class="space-y-5 px-7 py-6">
+          <div class="grid gap-3 sm:grid-cols-3">
+            <div class="rounded-xl border border-zinc-200 bg-white p-4"><p class="text-xs font-semibold uppercase tracking-wider text-zinc-500">Orders (24h)</p><p class="text-2xl font-bold">17</p></div>
+            <div class="rounded-xl border border-zinc-200 bg-white p-4"><p class="text-xs font-semibold uppercase tracking-wider text-zinc-500">Revenue (24h)</p><p class="text-2xl font-bold">$482.16</p></div>
+            <div class="rounded-xl border border-zinc-200 bg-white p-4"><p class="text-xs font-semibold uppercase tracking-wider text-zinc-500">Customer list</p><p class="text-2xl font-bold">64 people</p></div>
+          </div>
+          <div>
+            <p class="mb-2 text-sm font-bold">Upcoming reservations</p>
+            <div class="rounded-xl border border-zinc-200 bg-white text-sm">
+              <div class="flex items-center justify-between border-b border-zinc-100 px-4 py-2.5">
+                <span><b>Fri, Aug 14, 7:00 PM · party of 4</b><br><span class="text-zinc-500">Elaine Chu (+1 503 555 0144)</span></span>
+                <span class="flex gap-1.5 text-xs"><span class="rounded-lg bg-emerald-600 px-2.5 py-1.5 font-medium text-white">Seated</span><span class="rounded-lg border border-zinc-300 px-2.5 py-1.5 text-zinc-600">No-show</span><span class="rounded-lg border border-red-300 px-2.5 py-1.5 text-red-600">Cancel</span></span>
+              </div>
+              <div class="flex items-center justify-between px-4 py-2.5">
+                <span><b>Fri, Aug 14, 7:30 PM · party of 2</b><br><span class="text-zinc-500">Sam Ortiz (+1 503 555 0107)</span></span>
+                <span class="text-xs font-medium text-zinc-400">confirmed</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <p class="note mt-12 border-t border-zinc-300 pt-6">Annotate anything — a screen, a button, a word — and send it back; I'll fold your feedback into the real build. The live app follows these screens exactly (they're rendered from the same Tailwind classes as the code).</p>
+</div>
+</body>
+</html>

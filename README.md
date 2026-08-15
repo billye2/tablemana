@@ -1,36 +1,51 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# tableside
 
-## Getting Started
+Multi-tenant SaaS for independent restaurants: upload a menu photo, get a live
+website with online ordering (prepaid pickup) and reservations — flat pricing,
+no commissions, the restaurant owns its customer data.
 
-First, run the development server:
+**Production:** https://rc02-ivory.vercel.app · demo tenant: [/t/golden-poppy](https://rc02-ivory.vercel.app/t/golden-poppy)
+
+- `PLAN.md` — product spec and decisions (with build-time changes in §9)
+- `HANDOFF.md` — current state, credentials map, open items
+- `mistakes.md` — log of every fixed mistake (see AGENTS.md for the convention)
+
+## Stack
+
+Next.js 16 (App Router) on Vercel · Neon Postgres via Drizzle · Claude API
+(`claude-haiku-4-5`) for menu ingestion · Vercel Blob for dish photos · Pexels
+for stock photo defaults · Stripe Connect + Twilio SMS (adapters built, keys
+pending — see HANDOFF).
+
+## Surfaces
+
+| Surface | Route |
+|---|---|
+| Marketing / landing | `/` |
+| AI onboarding wizard | `/start` |
+| Tenant diner site | `/t/{slug}` (or `{slug}.$ROOT_DOMAIN` with a custom domain) |
+| Ordering / status | `/t/{slug}/order`, `/t/{slug}/order/{id}` |
+| Reservations | `/t/{slug}/reserve` |
+| Owner dashboard | `/dashboard/{slug}?key={ownerToken}` |
+| Counter tablet PWA | `/counter/{slug}?key={ownerToken}` |
+
+## Development
 
 ```bash
+vercel env pull            # DATABASE_URL, BLOB_READ_WRITE_TOKEN, ...
+npm install
+npm run db:push            # sync Drizzle schema to Neon
+npm run db:seed            # seed the golden-poppy demo (prints owner links)
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Tenant subdomains work locally via `{slug}.localhost:3000`. Without Stripe keys,
+checkout uses a simulated-paid path; without Twilio keys, SMS logs to stdout.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Deploy
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+npm run lint && npm run build
+vercel deploy          # preview
+vercel deploy --prod   # production
+```

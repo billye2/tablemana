@@ -12,15 +12,35 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+/*
+ * No prefers-color-scheme flip here: every surface paints its palette
+ * explicitly (platform = light, counter = dark, tenant sites = their theme).
+ * A UA-driven body flip caused white-on-white inputs on dark-mode phones.
+ */
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+}
+
+input,
+textarea,
+select {
+  color: inherit;
+  caret-color: currentColor;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #a1a1aa;
+  opacity: 1;
+}
+
+/* iOS dark mode must not restyle form controls we painted light. */
+input,
+textarea,
+select,
+button {
+  color-scheme: light;
 }

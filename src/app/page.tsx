@@ -1,69 +1,112 @@
-import Image from "next/image";
+import type { Metadata } from "next";
+import Link from "next/link";
 
-export default function Home() {
+export const metadata: Metadata = {
+  title: "Your restaurant, online — no commissions",
+  description:
+    "A generated website with online ordering and reservations. Flat pricing, your customer data, live in ten minutes from a menu photo.",
+};
+
+const FEATURES = [
+  [
+    "No commissions. Ever.",
+    "Flat $50/month plus 50¢ per online order — a fixed fee, never a percentage. Delivery apps take up to 30% of every ticket; we don't.",
+  ],
+  [
+    "Menu photo → live site in minutes",
+    "Upload a photo of your menu. We read every item and price, pick a design that fits your restaurant, and put you online with ordering and reservations built in.",
+  ],
+  [
+    "Your customers stay yours",
+    "Every diner who orders or books is on your list — names, numbers, consent — exportable any time. No platform sitting between you and your regulars.",
+  ],
+  [
+    "Built for the counter",
+    "Orders land on a tablet screen made for a rush: accept with a pickup time, 86 items with one tap, pause ordering when you're slammed. Diners get texts at every step.",
+  ],
+] as const;
+
+export default function Landing() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
+    <div className="min-h-screen bg-white text-zinc-900">
+      <header className="mx-auto flex max-w-5xl items-center justify-between px-4 py-5">
+        <span className="text-lg font-black tracking-tight">▲ tableside</span>
+        <Link
+          href="/start"
+          className="rounded-full bg-zinc-900 px-5 py-2.5 text-sm font-semibold text-white"
+        >
+          Get started free
+        </Link>
+      </header>
+
+      <main>
+        <section className="mx-auto max-w-3xl px-4 py-20 text-center">
+          <h1 className="text-4xl font-black tracking-tight sm:text-6xl">
+            Stop paying 30% to own your own customers.
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+          <p className="mx-auto mt-5 max-w-xl text-lg text-zinc-600">
+            A website with online ordering and reservations, generated from a
+            photo of your menu. Flat pricing. Your data. Live today.
           </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+          <div className="mt-8 flex justify-center gap-3">
+            <Link
+              href="/start"
+              className="rounded-full bg-zinc-900 px-7 py-3.5 font-semibold text-white"
+            >
+              Generate my site
+            </Link>
+            <a
+              href="#pricing"
+              className="rounded-full border border-zinc-300 px-7 py-3.5 font-semibold"
+            >
+              Pricing
+            </a>
+          </div>
+        </section>
+
+        <section className="mx-auto grid max-w-5xl gap-5 px-4 pb-20 sm:grid-cols-2">
+          {FEATURES.map(([title, body]) => (
+            <div key={title} className="rounded-2xl border border-zinc-200 p-6">
+              <h2 className="font-bold">{title}</h2>
+              <p className="mt-2 text-sm leading-relaxed text-zinc-600">{body}</p>
+            </div>
+          ))}
+        </section>
+
+        <section id="pricing" className="border-t border-zinc-200 bg-zinc-50 py-20">
+          <div className="mx-auto max-w-md px-4 text-center">
+            <h2 className="text-3xl font-black">One plan. No math.</h2>
+            <div className="mt-8 rounded-2xl border border-zinc-200 bg-white p-8">
+              <p className="text-5xl font-black">
+                $50<span className="text-lg font-medium text-zinc-500">/mo</span>
+              </p>
+              <p className="mt-2 text-zinc-600">+ 50¢ per online order — never a percentage</p>
+              <ul className="mt-6 space-y-2 text-left text-sm text-zinc-700">
+                {[
+                  "Generated website + your own subdomain",
+                  "Online ordering with prepaid pickup",
+                  "Reservations with SMS confirmations",
+                  "Counter tablet app + 86 board",
+                  "Your full customer list, exportable",
+                  "Tips go 100% to you",
+                ].map((f) => (
+                  <li key={f}>✓ {f}</li>
+                ))}
+              </ul>
+              <Link
+                href="/start"
+                className="mt-8 block rounded-full bg-zinc-900 py-3.5 font-semibold text-white"
+              >
+                Get started
+              </Link>
+            </div>
+          </div>
+        </section>
       </main>
+
+      <footer className="py-10 text-center text-sm text-zinc-500">
+        © {new Date().getFullYear()} tableside
+      </footer>
     </div>
   );
 }
