@@ -14,17 +14,11 @@ import {
 import { PLATFORM_FEE_CENTS, taxFor } from "@/lib/money";
 import { generateOrderCode, markPaid, recordEvent } from "@/lib/orders";
 import { beginPayment } from "@/lib/payments";
+import { normalizePhone } from "@/lib/phone";
 import { slotsForDate } from "@/lib/slots";
 import { sendSms } from "@/lib/sms";
 import { getRestaurantBySlug, tenantUrl } from "@/lib/tenant";
 import { formatSlotFull, todayInTz } from "@/lib/time";
-
-function normalizePhone(raw: string): string | null {
-  const digits = raw.replace(/\D/g, "");
-  if (digits.length === 10) return `+1${digits}`;
-  if (digits.length === 11 && digits.startsWith("1")) return `+${digits}`;
-  return null;
-}
 
 async function upsertCustomer(
   restaurantId: string,

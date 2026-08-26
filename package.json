@@ -8,7 +8,10 @@
     "start": "next start",
     "lint": "eslint",
     "db:push": "drizzle-kit push",
-    "db:seed": "tsx --env-file=.env.local src/db/seed.ts"
+    "db:seed": "tsx --env-file=.env.local src/db/seed.ts",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "check": "npm run lint && npm run typecheck && npm test && npm run build"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.117.1",
@@ -32,6 +35,7 @@
     "eslint-config-next": "16.3.1",
     "tailwindcss": "^4",
     "tsx": "^4.23.12",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vitest": "^4.1.11"
   }
 }

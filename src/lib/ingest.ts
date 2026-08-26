@@ -8,7 +8,7 @@ import { z } from "zod";
  * match the schema.
  */
 
-const ingestSchema = z.object({
+export const ingestSchema = z.object({
   cuisine: z.string(),
   description: z.string(),
   theme: z.enum(["classic", "bistro", "bold"]),
