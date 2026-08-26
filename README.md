@@ -40,7 +40,10 @@ npm run dev
 ```
 
 Tenant subdomains work locally via `{slug}.localhost:3000`. Without Stripe keys,
-checkout uses a simulated-paid path; without Twilio keys, SMS logs to stdout.
+checkout uses a simulated-paid path **in development only** — production refuses
+orders until Stripe is live (override with `ALLOW_SIMULATED_PAYMENTS=1` for a
+public demo, and remove it once Stripe lands). Without Twilio keys, SMS logs to
+stdout.
 
 ## Deploy
 

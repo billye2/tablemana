@@ -159,6 +159,15 @@ export async function placeOrder(input: unknown): Promise<PlaceOrderResult> {
   if (payment.type === "redirect") {
     return { ok: true, redirect: payment.url };
   }
+  if (payment.type === "unavailable") {
+    console.error(`[payments] refusing order ${order.id} for ${slug}: ${payment.reason}`);
+    await db.update(orders).set({ status: "canceled" }).where(eq(orders.id, order.id));
+    await recordEvent(order.id, "canceled", { reason: payment.reason });
+    return {
+      ok: false,
+      error: "Online payment isn't set up for this restaurant yet — please call to order.",
+    };
+  }
   await markPaid(restaurant, order);
   return { ok: true, redirect: `/t/${slug}${statusPath}` };
 }

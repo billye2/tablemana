@@ -9,10 +9,20 @@ import type { Order, Restaurant } from "@/db/schema";
 
 export type BeginPaymentResult =
   | { type: "redirect"; url: string }
-  | { type: "paid" };
+  | { type: "paid" }
+  | { type: "unavailable"; reason: string };
 
 export function isStripeConfigured(): boolean {
   return Boolean(process.env.STRIPE_SECRET_KEY);
+}
+
+/**
+ * Whether a real charge can be taken for this restaurant. The simulated-paid
+ * path below exists only so the order loop is testable without Stripe; it must
+ * never run against real diners, so in production it is refused outright.
+ */
+export function canSimulatePayment(): boolean {
+  return process.env.NODE_ENV !== "production" || process.env.ALLOW_SIMULATED_PAYMENTS === "1";
 }
 
 async function stripeApi(
@@ -44,6 +54,15 @@ export async function beginPayment(
   returnUrl: string,
 ): Promise<BeginPaymentResult> {
   if (!isStripeConfigured() || !restaurant.stripeAccountId) {
+    if (!canSimulatePayment()) {
+      return {
+        type: "unavailable",
+        reason: !isStripeConfigured()
+          ? "platform Stripe key not configured"
+          : "restaurant has no connected Stripe account",
+      };
+    }
+    console.warn(`[payments:dev] simulating paid order ${order.id} (${order.totalCents}¢)`);
     return { type: "paid" };
   }
 

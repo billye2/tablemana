@@ -5,6 +5,23 @@ the fix, and the lesson. Newest first.
 
 ---
 
+## 2026-08-25 — Simulated "paid" path ran in production, so orders were free
+
+- **Symptom:** With Stripe not yet provisioned, a diner could place a real order
+  on the production site and it landed on the counter tablet as paid — no
+  charge was ever taken.
+- **Root cause:** `beginPayment` fell back to `{ type: "paid" }` whenever
+  Stripe was unconfigured or the restaurant had no connected account. That
+  fallback was meant for local dev but nothing tied it to the environment.
+- **Fix:** `canSimulatePayment()` only allows the fallback outside production
+  (or with an explicit `ALLOW_SIMULATED_PAYMENTS=1`). In production without
+  Stripe, `beginPayment` returns `unavailable`; `placeOrder` cancels the order,
+  records the reason, and tells the diner to call. (`src/lib/payments.ts`,
+  `src/app/t/[slug]/actions.ts`)
+- **Lesson:** A dev convenience that touches money must be gated on the
+  environment, not on whether the real integration happens to be configured.
+  "Not configured" is exactly the state production starts in.
+
 ## 2026-08-15 — Tenant subdomain links pointed at unreachable URLs
 
 - **Symptom:** After generating a site, the success screen linked to
