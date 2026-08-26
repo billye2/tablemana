@@ -5,6 +5,32 @@ the fix, and the lesson. Newest first.
 
 ---
 
+## 2026-08-25 — Owner token lived in every dashboard URL
+
+- **Symptom:** The per-restaurant owner secret rode along as `?key=` on every
+  dashboard/counter link, export URL, and tab — so it sat in browser history,
+  referrer headers, and request logs, and was compared with plain `!==`.
+- **Root cause:** v1 auth was "token in link" end to end; nothing ever moved
+  the secret out of the URL after the first visit.
+- **Fix:** `src/proxy.ts` catches `?key=` on `/dashboard/*` and `/counter/*`,
+  stores it in an HttpOnly `ts_owner_{slug}` cookie, and redirects with the key
+  stripped. `requireOwner` accepts explicit key or cookie and compares with
+  `crypto.timingSafeEqual` (`src/lib/owner-token.ts`). Internal links no longer
+  carry the key.
+- **Lesson:** A bearer secret in a URL is leaked the moment it's clicked. Move
+  it to a cookie on first sight, and never string-compare secrets.
+
+## 2026-08-25 — Cron endpoint was public whenever CRON_SECRET was unset
+
+- **Symptom:** `/api/cron/auto-reject` skipped its auth check when
+  `CRON_SECRET` was absent — which it was in production.
+- **Root cause:** "Optional secret" logic: `if (secret && ...)` fails open.
+- **Fix:** `cronAuthorized()` in `src/lib/auto-reject.ts` fails closed in
+  production without a secret and only stays open in development.
+- **Lesson:** Auth checks gated on config presence fail open in exactly the
+  environment that forgot the config. Fail closed and gate the exception on
+  `NODE_ENV`.
+
 ## 2026-08-25 — Simulated "paid" path ran in production, so orders were free
 
 - **Symptom:** With Stripe not yet provisioned, a diner could place a real order

@@ -45,6 +45,21 @@ orders until Stripe is live (override with `ALLOW_SIMULATED_PAYMENTS=1` for a
 public demo, and remove it once Stripe lands). Without Twilio keys, SMS logs to
 stdout.
 
+## Architecture
+
+- **Tenancy:** one Postgres database, every row scoped by `restaurant_id`. Tenants are served at `/t/{slug}`; with a custom `ROOT_DOMAIN`, `src/proxy.ts` rewrites `{slug}.domain` to the same routes. Owner surfaces (`/dashboard`, `/counter`) are gated by a per-restaurant token that the proxy moves from the welcome link into an HttpOnly cookie (`src/lib/owner.ts`).
+- **Orders:** an explicit state machine (`src/lib/orders.ts`: awaiting_payment → placed → accepted → ready → picked_up, with rejected/auto_rejected/canceled as terminal states) plus an append-only `order_events` log that every surface (counter tablet, SMS, future POS adapters) consumes. Prices are re-computed server-side and snapshotted onto `order_items`. Unacknowledged orders are auto-rejected and refunded by a per-minute cron backstop.
+- **Reservations:** slots derived from weekly hours in the restaurant's timezone (`src/lib/slots.ts`, `src/lib/time.ts` — Intl only, no date library), capacity re-checked at booking time.
+- **AI onboarding:** a menu photo/PDF goes to Claude with a JSON-schema structured output (`src/lib/ingest.ts`); the result is validated again with Zod before it becomes a live site.
+- **Adapters with dev fallbacks:** payments (`src/lib/payments.ts`, Stripe Connect), SMS (`src/lib/sms.ts`, Twilio), stock photos (Pexels). Each degrades explicitly — simulated payments only outside production, SMS to stdout — and says so in logs.
+
+## Testing
+
+```bash
+npm test          # vitest over the pure modules (state machine, slots, timezone, auth token, proxy routing, schemas)
+npm run check     # lint + typecheck + test + build — what CI runs
+```
+
 ## Deploy
 
 ```bash

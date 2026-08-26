@@ -22,6 +22,8 @@ this up next._
 - **Owner dashboard:** stats, menu editor (with photo controls), settings
   (hours/tax/template/capacity), customer list with consent-flagged CSV export.
 - **Counter tablet PWA:** installable, order columns, 86 board, pause ordering.
+- **Tests + CI:** 147 vitest cases over the pure modules (`npm test`); GitHub Actions runs lint + typecheck + test + build on every push/PR.
+- **Payments gate:** simulated-paid checkout only runs outside production (`ALLOW_SIMULATED_PAYMENTS=1` overrides for demos).
 
 ## Live URLs
 
@@ -44,7 +46,7 @@ this up next._
 | Resend (email) | **not provisioned** | Terms: .../accept-terms/resend — only messaging provider on the marketplace (no SMS) |
 | Twilio SMS | **no account** | Not on Vercel marketplace. Adapter in `src/lib/sms.ts` reads `TWILIO_ACCOUNT_SID/AUTH_TOKEN/FROM_NUMBER`; logs to stdout until set |
 | Custom domain | **none** | Buy + add wildcard to project, set `ROOT_DOMAIN` env → tenant subdomains activate automatically (`src/lib/tenant.ts`, `src/proxy.ts`) |
-| Owner auth | **v1 token links** | `?key={ownerToken}` per restaurant; Clerk planned (marketplace-native) |
+| Owner auth | **v1 token → HttpOnly cookie** | Welcome link carries `?key={ownerToken}` once; proxy stores it in `ts_owner_{slug}` cookie and strips the URL; constant-time compare. Clerk planned (marketplace-native) |
 
 ## Open work (in rough order)
 
