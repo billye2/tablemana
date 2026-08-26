@@ -1,17 +1,23 @@
+import { cookies } from "next/headers";
 import type { Restaurant } from "@/db/schema";
+import { ownerCookieName, tokensMatch } from "./owner-token";
 import { getRestaurantBySlug } from "./tenant";
 
 /**
- * v1 owner gate: per-restaurant secret token carried as ?key= on dashboard and
- * counter URLs (handed to the owner at onboarding). Replaced by real owner
- * accounts when the auth integration lands (task: integrations).
+ * v1 owner gate: a per-restaurant secret token handed to the owner at
+ * onboarding. It arrives once as ?key= on the welcome link; the proxy moves it
+ * into an HttpOnly cookie and strips it from the URL, so it never sits in
+ * browser history, referrers, or logs after the first visit. A key passed
+ * explicitly (API routes, first visit) still works. Replaced by real owner
+ * accounts when the auth integration lands.
  */
 export async function requireOwner(
   slug: string,
-  key: string | undefined,
+  key?: string | null,
 ): Promise<Restaurant | null> {
-  if (!key) return null;
   const r = await getRestaurantBySlug(slug);
-  if (!r || r.ownerToken !== key) return null;
+  if (!r) return null;
+  const presented = key || (await cookies()).get(ownerCookieName(slug))?.value;
+  if (!tokensMatch(presented, r.ownerToken)) return null;
   return r;
 }

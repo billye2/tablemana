@@ -9,12 +9,10 @@ const TABS = [
 
 export function DashboardNav({
   slug,
-  ownerKey,
   active,
   restaurantName,
 }: {
   slug: string;
-  ownerKey: string;
   active: string;
   restaurantName: string;
 }) {
@@ -35,7 +33,7 @@ export function DashboardNav({
               View site ↗
             </a>
             <Link
-              href={`/counter/${slug}?key=${ownerKey}`}
+              href={`/counter/${slug}`}
               className="rounded-lg bg-zinc-900 px-3 py-2 font-medium text-white"
             >
               Open counter
@@ -46,7 +44,7 @@ export function DashboardNav({
           {TABS.map(([path, label]) => (
             <Link
               key={path}
-              href={`/dashboard/${slug}${path}?key=${ownerKey}`}
+              href={`/dashboard/${slug}${path}`}
               className={`rounded-t-lg px-4 py-2 text-sm font-medium ${
                 active === path
                   ? "border border-b-0 border-zinc-200 bg-zinc-50 text-zinc-900"

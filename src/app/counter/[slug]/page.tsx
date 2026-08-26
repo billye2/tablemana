@@ -56,7 +56,7 @@ export default async function CounterPage({
   return (
     <CounterClient
       slug={slug}
-      counterKey={key!}
+      counterKey={key ?? ""}
       restaurantName={r.name}
       orderingPaused={r.orderingPaused}
       autoRejectMinutes={r.autoRejectMinutes}

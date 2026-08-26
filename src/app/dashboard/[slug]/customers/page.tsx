@@ -23,7 +23,7 @@ export default async function CustomersPage({
 
   return (
     <div className="min-h-screen bg-zinc-50">
-      <DashboardNav slug={slug} ownerKey={key!} active="/customers" restaurantName={r.name} />
+      <DashboardNav slug={slug} active="/customers" restaurantName={r.name} />
       <main className="mx-auto max-w-3xl px-4 py-8">
         <div className="mb-4 flex items-center justify-between">
           <div>
@@ -33,7 +33,7 @@ export default async function CustomersPage({
             </p>
           </div>
           <a
-            href={`/api/export/customers?slug=${slug}&key=${key}`}
+            href={`/api/export/customers?slug=${slug}`}
             className="rounded-lg bg-zinc-900 px-4 py-2 text-sm font-medium text-white"
           >
             Export CSV

@@ -15,11 +15,11 @@ export default async function SettingsPage({
 
   return (
     <div className="min-h-screen bg-zinc-50">
-      <DashboardNav slug={slug} ownerKey={key!} active="/settings" restaurantName={r.name} />
+      <DashboardNav slug={slug} active="/settings" restaurantName={r.name} />
       <main className="mx-auto max-w-2xl px-4 py-8">
         <SettingsForm
           slug={slug}
-          ownerKey={key!}
+          ownerKey={key ?? ""}
           initial={{
             name: r.name,
             description: r.description ?? "",

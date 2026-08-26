@@ -17,11 +17,11 @@ export default async function MenuPage({
 
   return (
     <div className="min-h-screen bg-zinc-50">
-      <DashboardNav slug={slug} ownerKey={key!} active="/menu" restaurantName={r.name} />
+      <DashboardNav slug={slug} active="/menu" restaurantName={r.name} />
       <main className="mx-auto max-w-3xl px-4 py-8">
         <MenuEditor
           slug={slug}
-          ownerKey={key!}
+          ownerKey={key ?? ""}
           menu={menu.map(({ section, items }) => ({
             id: section.id,
             name: section.name,

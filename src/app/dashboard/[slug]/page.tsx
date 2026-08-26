@@ -61,7 +61,7 @@ export default async function DashboardOverview({
 
   return (
     <div className="min-h-screen bg-zinc-50">
-      <DashboardNav slug={slug} ownerKey={key!} active="" restaurantName={r.name} />
+      <DashboardNav slug={slug} active="" restaurantName={r.name} />
       <main className="mx-auto max-w-5xl space-y-8 px-4 py-8">
         <div className="grid gap-4 sm:grid-cols-3">
           {[
@@ -89,7 +89,7 @@ export default async function DashboardOverview({
                   <ReservationRow
                     key={reservation.id}
                     slug={slug}
-                    ownerKey={key!}
+                    ownerKey={key ?? ""}
                     id={reservation.id}
                     status={reservation.status}
                     label={`${formatSlotFull(reservation.slotStart, r.timezone)} · party of ${reservation.partySize}`}

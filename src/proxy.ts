@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { ownerCookieName, ownerSlugFromPath } from "@/lib/owner-token";
 
 /**
  * Hostname-based tenancy (PLAN.md §7): `{slug}.<root>` serves the tenant site
@@ -7,6 +8,24 @@ import { NextRequest, NextResponse } from "next/server";
  * here via a domain→slug lookup.
  */
 export default function proxy(req: NextRequest) {
+  // Owner links carry ?key= once; park it in an HttpOnly cookie and drop it
+  // from the URL so the token stops leaking via history/referrers/logs.
+  const ownerSlug = ownerSlugFromPath(req.nextUrl.pathname);
+  const key = req.nextUrl.searchParams.get("key");
+  if (ownerSlug && key) {
+    const url = req.nextUrl.clone();
+    url.searchParams.delete("key");
+    const res = NextResponse.redirect(url);
+    res.cookies.set(ownerCookieName(ownerSlug), key, {
+      httpOnly: true,
+      sameSite: "lax",
+      secure: process.env.NODE_ENV === "production",
+      path: "/",
+      maxAge: 60 * 60 * 24 * 365,
+    });
+    return res;
+  }
+
   const host = (req.headers.get("host") ?? "").toLowerCase().split(":")[0];
   const root = (process.env.ROOT_DOMAIN ?? "localhost").toLowerCase().split(":")[0];
 
