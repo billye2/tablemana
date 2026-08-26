@@ -5,6 +5,20 @@ the fix, and the lesson. Newest first.
 
 ---
 
+## 2026-08-25 — CI typecheck failed on a fresh clone: `PageProps` not found
+
+- **Symptom:** First CI run errored with `TS2304: Cannot find name 'PageProps'`
+  / `'LayoutProps'` in every page and layout, though `tsc` was clean locally.
+- **Root cause:** Those are global helper types Next generates into
+  `.next/types` during `next dev`/`next build`. Locally they existed from
+  past dev runs; on a clean checkout `tsc --noEmit` ran before anything had
+  generated them.
+- **Fix:** `npm run typecheck` is now `next typegen && tsc --noEmit`
+  (`package.json`) — `next typegen` produces the route types without a build.
+- **Lesson:** "Works on my machine" for typecheck can depend on generated
+  files. Anything CI runs must be reproducible from a clean clone; when a
+  framework generates types, generate them explicitly in the script.
+
 ## 2026-08-25 — Owner token lived in every dashboard URL
 
 - **Symptom:** The per-restaurant owner secret rode along as `?key=` on every
