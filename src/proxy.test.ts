@@ -36,30 +36,30 @@ describe("owner key capture", () => {
 
 describe("hostname tenancy", () => {
   it("rewrites {slug}.root to /t/{slug}", () => {
-    vi.stubEnv("ROOT_DOMAIN", "tableside.test");
-    const res = proxy(req("https://golden-poppy.tableside.test/reserve?d=1"));
+    vi.stubEnv("ROOT_DOMAIN", "tablemana.test");
+    const res = proxy(req("https://golden-poppy.tablemana.test/reserve?d=1"));
     expect(res.headers.get("x-middleware-rewrite")).toBe(
-      "https://golden-poppy.tableside.test/t/golden-poppy/reserve?d=1",
+      "https://golden-poppy.tablemana.test/t/golden-poppy/reserve?d=1",
     );
   });
   it("serves the root and www hosts directly", () => {
-    vi.stubEnv("ROOT_DOMAIN", "tableside.test");
-    expect(proxy(req("https://tableside.test/start")).headers.get("x-middleware-rewrite")).toBeNull();
-    expect(proxy(req("https://www.tableside.test/")).headers.get("x-middleware-rewrite")).toBeNull();
+    vi.stubEnv("ROOT_DOMAIN", "tablemana.test");
+    expect(proxy(req("https://tablemana.test/start")).headers.get("x-middleware-rewrite")).toBeNull();
+    expect(proxy(req("https://www.tablemana.test/")).headers.get("x-middleware-rewrite")).toBeNull();
   });
   it("never rewrites *.vercel.app (single-level wildcard only)", () => {
-    vi.stubEnv("ROOT_DOMAIN", "tableside.test");
+    vi.stubEnv("ROOT_DOMAIN", "tablemana.test");
     expect(proxy(req("https://rc02-ivory.vercel.app/t/x")).headers.get("x-middleware-rewrite")).toBeNull();
   });
   it("ignores multi-level subdomains", () => {
-    vi.stubEnv("ROOT_DOMAIN", "tableside.test");
-    expect(proxy(req("https://a.b.tableside.test/")).headers.get("x-middleware-rewrite")).toBeNull();
+    vi.stubEnv("ROOT_DOMAIN", "tablemana.test");
+    expect(proxy(req("https://a.b.tablemana.test/")).headers.get("x-middleware-rewrite")).toBeNull();
   });
   it("canonicalizes an internal /t/{slug} path on the subdomain back to the pretty URL", () => {
-    vi.stubEnv("ROOT_DOMAIN", "tableside.test");
-    const res = proxy(req("https://golden-poppy.tableside.test/t/golden-poppy/order"));
+    vi.stubEnv("ROOT_DOMAIN", "tablemana.test");
+    const res = proxy(req("https://golden-poppy.tablemana.test/t/golden-poppy/order"));
     expect(res.status).toBe(307);
-    expect(res.headers.get("location")).toBe("https://golden-poppy.tableside.test/order");
+    expect(res.headers.get("location")).toBe("https://golden-poppy.tablemana.test/order");
   });
   it("strips a port from the host before matching", () => {
     vi.stubEnv("ROOT_DOMAIN", "localhost");

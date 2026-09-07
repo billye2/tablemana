@@ -30,7 +30,7 @@ export default function Landing() {
   return (
     <div className="min-h-screen bg-white text-zinc-900">
       <header className="mx-auto flex max-w-5xl items-center justify-between px-4 py-5">
-        <span className="text-lg font-black tracking-tight">▲ tableside</span>
+        <span className="text-lg font-black tracking-tight">▲ tablemana</span>
         <Link
           href="/start"
           className="rounded-full bg-zinc-900 px-5 py-2.5 text-sm font-semibold text-white"
@@ -105,7 +105,7 @@ export default function Landing() {
       </main>
 
       <footer className="py-10 text-center text-sm text-zinc-500">
-        © {new Date().getFullYear()} tableside
+        © {new Date().getFullYear()} tablemana
       </footer>
     </div>
   );

@@ -3,7 +3,7 @@ import type { MetadataRoute } from "next";
 /** Installable counter-tablet PWA (PLAN.md §1) — owners install from /counter. */
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Restaurant Counter",
+    name: "tablemana Counter",
     short_name: "Counter",
     description: "Incoming pickup orders, 86 board, and ordering controls.",
     start_url: "/counter",

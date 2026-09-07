@@ -1,4 +1,4 @@
-# PLAN — Restaurant PWA Platform (working name: tableside)
+# PLAN — Restaurant PWA Platform (working name: tablemana)
 
 > Product spec settled via design-tree grilling, 2026-08-14. Every decision below was
 > explicitly made; open items are marked TBD, not assumed.
@@ -165,4 +165,4 @@ One restaurant proves the demo; three prove the product.
    Pexels at onboarding (needs `PEXELS_API_KEY`, free) + owner uploads stored in
    Vercel Blob (`tableside-photos` store) replacing them. Photos render on the
    diner site, order page, and menu editor.
-4. **Working name is "tableside"** (placeholder branding on the landing page).
+4. **Working name is "tablemana"** (renamed from "tableside" on 2026-09-06; the Vercel project, GitHub repo, and Blob store keep their old names).
