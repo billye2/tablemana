@@ -8,10 +8,14 @@ export default async function OrderPage({ params }: PageProps<"/t/[slug]/order">
   const r = await getRestaurantBySlug(slug);
   if (!r) notFound();
   const menu = await getMenu(r.id);
+  const address = [r.address1, r.city, [r.region, r.postalCode].filter(Boolean).join(" ")]
+    .filter((part) => part && part.trim())
+    .join(", ");
 
   return (
     <OrderClient
       slug={slug}
+      restaurant={{ name: r.name, address: address || null, phone: r.phone }}
       orderingPaused={r.orderingPaused}
       taxRateBps={r.taxRateBps}
       smsEnabled={isSmsConfigured()}

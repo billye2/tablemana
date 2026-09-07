@@ -16,12 +16,14 @@ type SectionLite = { id: string; name: string; items: MenuItemLite[] };
 
 export function OrderClient({
   slug,
+  restaurant,
   menu,
   taxRateBps,
   orderingPaused,
   smsEnabled,
 }: {
   slug: string;
+  restaurant: { name: string; address: string | null; phone: string | null };
   menu: SectionLite[];
   taxRateBps: number;
   orderingPaused: boolean;
@@ -109,7 +111,20 @@ export function OrderClient({
   return (
     <div className="grid gap-8 py-6 pb-28 sm:py-8 lg:grid-cols-[1fr_320px] lg:pb-8">
       <div className="space-y-8">
-        <h1 className="text-2xl font-bold">Order pickup</h1>
+        <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between sm:gap-6">
+          <h1 className="text-2xl font-bold">Order pickup</h1>
+          <address className="text-sm not-italic leading-snug sm:text-right" style={{ color: "var(--t-muted)" }}>
+            <p className="font-semibold" style={{ color: "var(--t-fg)" }}>{restaurant.name}</p>
+            {restaurant.address && <p>{restaurant.address}</p>}
+            {restaurant.phone && (
+              <p>
+                <a href={`tel:${restaurant.phone.replace(/[^+\d]/g, "")}`} className="underline-offset-2 hover:underline">
+                  {restaurant.phone}
+                </a>
+              </p>
+            )}
+          </address>
+        </div>
         {menu.map((section) => (
           <div key={section.id}>
             <h2
