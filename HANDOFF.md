@@ -1,4 +1,4 @@
-# HANDOFF — tableside (rc02)
+# HANDOFF — tableside
 
 _Last updated 2026-08-15. State of the world for whoever (human or agent) picks
 this up next._
@@ -27,7 +27,7 @@ this up next._
 
 ## Live URLs
 
-- Production: **https://rc02-ivory.vercel.app**
+- Production: **https://tableside-mu.vercel.app** (Vercel project `tableside`, git-connected: push to `main` deploys)
 - Demo tenant: `/t/golden-poppy` — owner key for dashboard/counter is the
   `ownerToken` column in the `restaurants` table (re-seed prints it; treat as
   secret).
@@ -37,11 +37,11 @@ this up next._
 
 | Thing | Where | Notes |
 |---|---|---|
-| Vercel project | `billys-projects-7712fade/rc02` | CLI logged in as `billye-2920` |
-| Neon Postgres | Vercel Marketplace integration | `DATABASE_URL` in all envs; schema via `npm run db:push` |
+| Vercel project | `billys-projects-7712fade/tableside` (since 2026-09-06) | CLI logged in as `billye-2920`. The original project `rc02` was taken over and renamed `scanmana` by another app on 2026-08-31; nothing of tableside runs there any more |
+| Neon Postgres | Marketplace resource `neon-chestnut-jacket` — the live restaurant DB, connected only to `tableside` | `DATABASE_URL` in all envs; schema via `npm run db:push`. Never delete this resource |
 | Claude API key | Vercel env `ANTHROPIC_API_KEY` | Preview + Production, sensitive (not pullable); model `claude-haiku-4-5` in `src/lib/ingest.ts` |
 | Blob store | `tableside-photos` (public) | `BLOB_READ_WRITE_TOKEN` in all envs |
-| Pexels | **missing** | Free key from pexels.com/api → add as `PEXELS_API_KEY` → stock photos activate, no code change |
+| Pexels | Vercel env `PEXELS_API_KEY` | Preview + Production, sensitive; stock photos active |
 | Stripe | **not provisioned** | Marketplace terms not yet accepted: https://vercel.com/billys-projects-7712fade/~/integrations/accept-terms/stripe?source=cli — then `vercel integration add stripe --no-claim`. Adapter ready in `src/lib/payments.ts` (Connect Standard, 50¢ app fee); dev-only fallback = simulated-paid; production refuses orders until Stripe is live |
 | Resend (email) | **not provisioned** | Terms: .../accept-terms/resend — only messaging provider on the marketplace (no SMS) |
 | Twilio SMS | **no account** | Not on Vercel marketplace. Adapter in `src/lib/sms.ts` reads `TWILIO_ACCOUNT_SID/AUTH_TOKEN/FROM_NUMBER`; logs to stdout until set |

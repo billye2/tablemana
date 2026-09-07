@@ -4,7 +4,7 @@ Multi-tenant SaaS for independent restaurants: upload a menu photo, get a live
 website with online ordering (prepaid pickup) and reservations — flat pricing,
 no commissions, the restaurant owns its customer data.
 
-**Production:** https://rc02-ivory.vercel.app · demo tenant: [/t/golden-poppy](https://rc02-ivory.vercel.app/t/golden-poppy)
+**Production:** https://tableside-mu.vercel.app · demo tenant: [/t/golden-poppy](https://tableside-mu.vercel.app/t/golden-poppy)
 
 - `PLAN.md` — product spec and decisions (with build-time changes in §9)
 - `HANDOFF.md` — current state, credentials map, open items
@@ -62,8 +62,15 @@ npm run check     # lint + typecheck + test + build — what CI runs
 
 ## Deploy
 
+The Vercel project `tableside` is connected to this GitHub repo: every push to
+`main` deploys to production and every other branch gets a preview. Manual
+deploys still work:
+
 ```bash
-npm run lint && npm run build
+npm run check          # what CI runs
 vercel deploy          # preview
 vercel deploy --prod   # production
 ```
+
+Secrets live only in Vercel env (`vercel env add NAME production --sensitive`);
+run local commands that need them through `vercel env run -- <cmd>`.

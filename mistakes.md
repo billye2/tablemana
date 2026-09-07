@@ -5,6 +5,29 @@ the fix, and the lesson. Newest first.
 
 ---
 
+## 2026-09-06 — Production URL dead: the Vercel project had been taken over by another app
+
+- **Symptom:** https://rc02-ivory.vercel.app returned `DEPLOYMENT_NOT_FOUND` on
+  every path, and `vercel project inspect rc02` said the project did not exist,
+  though nobody had deleted anything.
+- **Root cause:** On 2026-08-31 a different app (Scanmana) was deployed from a
+  folder whose `.vercel/project.json` pointed at this project. That session then
+  renamed the project `rc02` → `scanmana` and git-connected it to the Scanmana
+  repo. Renaming a project drops its `<name>-<hash>.vercel.app` alias, so the
+  tableside production URL vanished. Its handoff doc also labelled tableside's
+  Neon resource an "orphan, safe to remove".
+- **Fix:** New Vercel project `tableside` (git-connected to this repo), the Neon
+  resource `neon-chestnut-jacket` verified as the tableside DB by matching
+  `NEON_PROJECT_ID`, connected to the new project and disconnected from Scanmana.
+  Blob token and a fresh `CRON_SECRET` set; the sensitive API keys had to be
+  re-entered. README + HANDOFF now point at https://tableside-mu.vercel.app.
+- **Lesson:** Before the first `--prod` deploy onto a pre-existing Vercel
+  project, run `vercel ls` and check what its alias serves. Never rename a
+  project that another app depends on. And verify a resource is unused (compare
+  project IDs) before writing "safe to delete" in a handoff.
+
+---
+
 ## 2026-08-25 — CI typecheck failed on a fresh clone: `PageProps` not found
 
 - **Symptom:** First CI run errored with `TS2304: Cannot find name 'PageProps'`
