@@ -10,6 +10,15 @@ pushes (which deploys production) and creates the GitHub release from the
 matching section below. Write the next version's section before running the
 release.
 
+## [1.0.2] — 2026-09-07
+
+### Added
+
+- **Live demo on the landing page** — a "See a live demo" button in the hero
+  opens the Restaurant Demo tenant (`/t/restaurant-demo`) in a new tab so
+  prospects can browse a generated site, place a test order, and book a table
+  before signing up.
+
 ## [1.0.1] — 2026-09-06
 
 ### Added
@@ -68,5 +77,6 @@ Baseline release stamping the first fully-live state under the tablemana name.
   from its own git-connected project, with the Neon resource verified as its
   database and the sensitive API keys re-entered.
 
+[1.0.2]: https://github.com/billye2/tablemana/releases/tag/v1.0.2
 [1.0.1]: https://github.com/billye2/tablemana/releases/tag/v1.0.1
 [1.0.0]: https://github.com/billye2/tablemana/releases/tag/v1.0.0
