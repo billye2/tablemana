@@ -43,7 +43,7 @@ export default async function HelpPage({ params }: PageProps<"/dashboard/[slug]/
   return (
     <div className="min-h-screen bg-zinc-50">
       <DashboardNav slug={slug} active="/help" restaurantName={r.name} />
-      <main className="mx-auto max-w-3xl px-4 py-8">
+      <main className="mx-auto max-w-3xl px-4 py-6 sm:py-8">
         <div className="mb-6">
           <h2 className="text-lg font-bold text-zinc-900">Help</h2>
           <p className="text-sm text-zinc-500">
@@ -167,7 +167,7 @@ export default async function HelpPage({ params }: PageProps<"/dashboard/[slug]/
           <section className="space-y-3">
             <h2 id="orders" className={h2}>Order lifecycle</h2>
             <div className="overflow-x-auto rounded-xl border border-zinc-200 bg-white">
-              <table className="w-full text-left text-sm">
+              <table className="w-full min-w-[36rem] text-left text-sm">
                 <thead className="bg-zinc-50 text-xs uppercase tracking-wider text-zinc-500">
                   <tr>
                     <th className="px-4 py-2.5">Status</th>

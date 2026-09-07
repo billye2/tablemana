@@ -58,7 +58,7 @@ export default async function OrderStatusPage({
   const copy = STATUS_COPY[order.status];
 
   return (
-    <div className="mx-auto max-w-md py-14 text-center">
+    <div className="mx-auto max-w-md py-10 text-center sm:py-14">
       {copy.live && <AutoRefresh />}
       <p
         className="text-xs font-semibold uppercase tracking-[0.2em]"
@@ -80,7 +80,7 @@ export default async function OrderStatusPage({
       )}
       {order.status === "ready" && (
         <p
-          className="mx-auto mt-6 w-fit rounded-2xl px-8 py-4 text-4xl font-black tracking-widest text-white"
+          className="mx-auto mt-6 w-fit max-w-full rounded-2xl px-6 py-4 text-3xl font-black tracking-widest text-white sm:px-8 sm:text-4xl"
           style={{ background: "var(--t-accent)" }}
         >
           {order.code}

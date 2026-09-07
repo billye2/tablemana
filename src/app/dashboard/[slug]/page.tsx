@@ -58,14 +58,14 @@ export default async function DashboardOverview({ params }: PageProps<"/dashboar
   return (
     <div className="min-h-screen bg-zinc-50">
       <DashboardNav slug={slug} active="" restaurantName={r.name} />
-      <main className="mx-auto max-w-5xl space-y-8 px-4 py-8">
-        <div className="grid gap-4 sm:grid-cols-3">
+      <main className="mx-auto max-w-5xl space-y-8 px-4 py-6 sm:py-8">
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4">
           {[
             ["Orders (24h)", String(todayStats.count)],
             ["Revenue (24h)", formatCents(todayStats.revenue)],
             ["Customer list", `${customerCount.count} people`],
           ].map(([label, value]) => (
-            <div key={label} className="rounded-xl border border-zinc-200 bg-white p-5">
+            <div key={label} className="rounded-xl border border-zinc-200 bg-white p-4 last:col-span-2 sm:p-5 sm:last:col-span-1">
               <p className="text-xs font-semibold uppercase tracking-wider text-zinc-500">
                 {label}
               </p>
@@ -101,10 +101,10 @@ export default async function DashboardOverview({ params }: PageProps<"/dashboar
           <div className="overflow-hidden rounded-xl border border-zinc-200 bg-white">
             <ul className="divide-y divide-zinc-100 text-sm">
               {recentOrders.map((o) => (
-                <li key={o.id} className="flex items-center justify-between px-5 py-3">
+                <li key={o.id} className="flex items-center justify-between gap-3 px-4 py-3 sm:px-5">
                   <span className="font-mono font-bold">{o.code}</span>
                   <span className="text-zinc-500">{o.status.replace("_", " ")}</span>
-                  <span className="font-medium">{formatCents(o.totalCents)}</span>
+                  <span className="font-medium tabular-nums">{formatCents(o.totalCents)}</span>
                 </li>
               ))}
               {recentOrders.length === 0 && (

@@ -21,31 +21,31 @@ export function ReservationRow({
     startTransition(() => setReservationStatus(slug, id, s));
 
   return (
-    <li className="flex flex-wrap items-center justify-between gap-2 px-5 py-3 text-sm">
-      <div>
+    <li className="flex flex-wrap items-center justify-between gap-2 px-4 py-3 text-sm sm:px-5">
+      <div className="min-w-0">
         <p className="font-medium text-zinc-900">{label}</p>
         <p className="text-zinc-500">{who}</p>
       </div>
       {status === "confirmed" ? (
-        <div className="flex gap-2">
+        <div className="flex w-full gap-2 sm:w-auto">
           <button
             disabled={pending}
             onClick={() => act("seated")}
-            className="rounded-lg bg-emerald-600 px-3 py-1.5 font-medium text-white disabled:opacity-50"
+            className="min-h-10 flex-1 rounded-lg bg-emerald-600 px-3 font-medium text-white disabled:opacity-50 sm:flex-none"
           >
             Seated
           </button>
           <button
             disabled={pending}
             onClick={() => act("no_show")}
-            className="rounded-lg border border-zinc-300 px-3 py-1.5 font-medium text-zinc-600 disabled:opacity-50"
+            className="min-h-10 flex-1 rounded-lg border border-zinc-300 px-3 font-medium text-zinc-600 disabled:opacity-50 sm:flex-none"
           >
             No-show
           </button>
           <button
             disabled={pending}
             onClick={() => act("canceled")}
-            className="rounded-lg border border-red-300 px-3 py-1.5 font-medium text-red-600 disabled:opacity-50"
+            className="min-h-10 flex-1 rounded-lg border border-red-300 px-3 font-medium text-red-600 disabled:opacity-50 sm:flex-none"
           >
             Cancel
           </button>

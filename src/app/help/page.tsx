@@ -53,19 +53,19 @@ export default function HelpPage() {
 
   return (
     <div className="min-h-screen bg-zinc-50 text-zinc-900">
-      <header className="mx-auto flex max-w-5xl items-center justify-between px-4 py-5">
+      <header className="mx-auto flex max-w-5xl items-center justify-between gap-3 px-4 py-4 sm:py-5">
         <Link href="/" className="text-lg font-black tracking-tight">
           ▲ tablemana
         </Link>
-        <div className="flex items-center gap-4 text-sm">
+        <div className="flex items-center gap-3 text-sm sm:gap-4">
           <Link href="/sign-in" className="font-medium text-zinc-600">
             Sign in
           </Link>
           <Link
             href="/start"
-            className="rounded-full bg-zinc-900 px-5 py-2.5 font-semibold text-white"
+            className="inline-flex min-h-11 items-center rounded-full bg-zinc-900 px-4 font-semibold text-white sm:px-5"
           >
-            Get started free
+            Get started<span className="hidden sm:inline">&nbsp;free</span>
           </Link>
         </div>
       </header>
@@ -83,7 +83,7 @@ export default function HelpPage() {
             <a
               key={id}
               href={`#${id}`}
-              className="rounded-full border border-zinc-300 bg-white px-3 py-1 text-zinc-700"
+              className="inline-flex min-h-9 items-center rounded-full border border-zinc-300 bg-white px-3 text-zinc-700"
             >
               {label}
             </a>

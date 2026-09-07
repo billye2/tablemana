@@ -39,13 +39,13 @@ function ItemForm({
         value={name}
         onChange={(e) => setName(e.target.value)}
         placeholder="Item name"
-        className="w-full rounded border border-zinc-300 px-2 py-1.5 text-sm"
+        className="min-h-11 w-full rounded border border-zinc-300 px-2.5 text-sm sm:min-h-9"
       />
       <input
         value={description}
         onChange={(e) => setDescription(e.target.value)}
         placeholder="Description (optional)"
-        className="w-full rounded border border-zinc-300 px-2 py-1.5 text-sm"
+        className="min-h-11 w-full rounded border border-zinc-300 px-2.5 text-sm sm:min-h-9"
       />
       <div className="flex items-center gap-2">
         <span className="text-sm text-zinc-500">$</span>
@@ -54,12 +54,12 @@ function ItemForm({
           onChange={(e) => setPrice(e.target.value)}
           placeholder="0.00"
           inputMode="decimal"
-          className="w-24 rounded border border-zinc-300 px-2 py-1.5 text-sm"
+          className="min-h-11 w-24 rounded border border-zinc-300 px-2.5 text-sm sm:min-h-9"
         />
         <div className="ml-auto flex gap-2">
           <button
             onClick={onCancel}
-            className="rounded px-3 py-1.5 text-sm text-zinc-500"
+            className="min-h-11 rounded px-3 text-sm text-zinc-500 sm:min-h-9"
           >
             Cancel
           </button>
@@ -68,7 +68,7 @@ function ItemForm({
             onClick={() =>
               onSubmit({ name, description: description || undefined, priceCents })
             }
-            className="rounded bg-zinc-900 px-3 py-1.5 text-sm font-medium text-white disabled:opacity-50"
+            className="min-h-11 rounded bg-zinc-900 px-3 text-sm font-medium text-white disabled:opacity-50 sm:min-h-9"
           >
             Save
           </button>
@@ -130,14 +130,14 @@ export function MenuEditor({ slug, menu }: { slug: string; menu: SectionLite[] }
       <h2 className="text-lg font-bold text-zinc-900">Menu editor</h2>
       {menu.map((section) => (
         <section key={section.id}>
-          <div className="mb-2 flex items-center justify-between">
-            <h3 className="text-sm font-bold uppercase tracking-wider text-zinc-500">
+          <div className="mb-2 flex items-center justify-between gap-3">
+            <h3 className="min-w-0 truncate text-sm font-bold uppercase tracking-wider text-zinc-500">
               {section.name}
             </h3>
-            <div className="flex gap-3 text-sm">
+            <div className="flex shrink-0 gap-3 text-sm">
               <button
                 onClick={() => setAddingTo(section.id)}
-                className="font-medium text-zinc-900"
+                className="min-h-10 font-medium text-zinc-900"
               >
                 + Add item
               </button>
@@ -148,7 +148,7 @@ export function MenuEditor({ slug, menu }: { slug: string; menu: SectionLite[] }
                     run(() => deleteSection(slug, section.id));
                   }
                 }}
-                className="text-red-600"
+                className="min-h-10 text-red-600"
               >
                 Delete
               </button>
@@ -174,7 +174,7 @@ export function MenuEditor({ slug, menu }: { slug: string; menu: SectionLite[] }
                     onSubmit={(v) => run(() => updateItem(slug, item.id, v))}
                   />
                 ) : (
-                  <div className="flex items-center justify-between gap-3 rounded-lg border border-zinc-200 bg-white px-4 py-3">
+                  <div className="flex flex-wrap items-center gap-3 rounded-lg border border-zinc-200 bg-white px-3 py-3 sm:px-4">
                     <label
                       className="group relative block h-12 w-12 shrink-0 cursor-pointer overflow-hidden rounded-lg border border-zinc-200 bg-zinc-50"
                       title={item.photoUrl ? "Replace photo" : "Add photo"}
@@ -208,7 +208,7 @@ export function MenuEditor({ slug, menu }: { slug: string; menu: SectionLite[] }
                         }}
                       />
                     </label>
-                    <div className="min-w-0 flex-1">
+                    <div className="min-w-0 flex-1 basis-40">
                       <p className="font-medium text-zinc-900">
                         {item.name}
                         {!item.available && (
@@ -221,13 +221,13 @@ export function MenuEditor({ slug, menu }: { slug: string; menu: SectionLite[] }
                         <p className="text-sm text-zinc-500">{item.description}</p>
                       )}
                     </div>
-                    <div className="flex items-center gap-3 text-sm">
-                      <span className="font-medium">{formatCents(item.priceCents)}</span>
+                    <div className="ml-auto flex items-center gap-4 text-sm">
+                      <span className="font-medium tabular-nums">{formatCents(item.priceCents)}</span>
                       {item.photoUrl && (
                         <button
                           disabled={photoBusy !== null}
                           onClick={() => removePhoto(item.id)}
-                          className="text-zinc-400 underline"
+                          className="min-h-10 text-zinc-400 underline"
                           title="Remove photo"
                         >
                           No photo
@@ -235,7 +235,7 @@ export function MenuEditor({ slug, menu }: { slug: string; menu: SectionLite[] }
                       )}
                       <button
                         onClick={() => setEditing(item.id)}
-                        className="text-zinc-600 underline"
+                        className="min-h-10 text-zinc-600 underline"
                       >
                         Edit
                       </button>
@@ -246,7 +246,8 @@ export function MenuEditor({ slug, menu }: { slug: string; menu: SectionLite[] }
                             run(() => deleteItem(slug, item.id));
                           }
                         }}
-                        className="text-red-600"
+                        className="min-h-10 min-w-10 text-red-600"
+                        aria-label={`Delete ${item.name}`}
                       >
                         ✕
                       </button>
@@ -259,12 +260,12 @@ export function MenuEditor({ slug, menu }: { slug: string; menu: SectionLite[] }
         </section>
       ))}
 
-      <div className="flex gap-2 border-t border-zinc-200 pt-6">
+      <div className="flex flex-col gap-2 border-t border-zinc-200 pt-6 sm:flex-row">
         <input
           value={newSection}
           onChange={(e) => setNewSection(e.target.value)}
           placeholder="New section name (e.g. Specials)"
-          className="flex-1 rounded-lg border border-zinc-300 px-3 py-2 text-sm"
+          className="min-h-11 flex-1 rounded-lg border border-zinc-300 px-3 text-sm sm:min-h-10"
         />
         <button
           disabled={pending || !newSection.trim()}
@@ -274,7 +275,7 @@ export function MenuEditor({ slug, menu }: { slug: string; menu: SectionLite[] }
               setNewSection("");
             })
           }
-          className="rounded-lg bg-zinc-900 px-4 py-2 text-sm font-medium text-white disabled:opacity-50"
+          className="min-h-11 rounded-lg bg-zinc-900 px-4 text-sm font-medium text-white disabled:opacity-50 sm:min-h-10"
         >
           Add section
         </button>

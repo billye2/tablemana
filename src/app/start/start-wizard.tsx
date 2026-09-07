@@ -94,7 +94,7 @@ export function StartWizard() {
   }
 
   const input =
-    "w-full rounded-lg border border-zinc-300 bg-white px-3 py-2.5 text-sm text-zinc-900 placeholder:text-zinc-400";
+    "min-h-11 w-full rounded-lg border border-zinc-300 bg-white px-3 text-sm text-zinc-900 placeholder:text-zinc-400";
 
   return (
     <form onSubmit={submit} className="mt-8 space-y-4">
@@ -119,7 +119,7 @@ export function StartWizard() {
               ? "Drop it here"
               : file
                 ? file.name
-                : "Upload or drag in a photo or PDF of your menu"}
+                : "Take a photo of your menu, or upload a photo or PDF"}
           </span>
           <p className="mt-1 text-xs text-zinc-500">
             {file
@@ -137,13 +137,13 @@ export function StartWizard() {
         </label>
       </div>
 
-      <input name="name" required placeholder="Restaurant name" className={input} />
-      <input name="phone" placeholder="Phone (optional)" className={input} />
-      <input name="address1" placeholder="Street address (optional)" className={input} />
-      <div className="grid grid-cols-3 gap-3">
-        <input name="city" placeholder="City" className={input} />
-        <input name="region" placeholder="State" className={input} />
-        <input name="postalCode" placeholder="ZIP" className={input} />
+      <input name="name" required placeholder="Restaurant name" autoComplete="organization" className={input} />
+      <input name="phone" placeholder="Phone (optional)" type="tel" autoComplete="tel" className={input} />
+      <input name="address1" placeholder="Street address (optional)" autoComplete="address-line1" className={input} />
+      <div className="grid grid-cols-[2fr_1fr_1fr] gap-3">
+        <input name="city" placeholder="City" autoComplete="address-level2" className={input} />
+        <input name="region" placeholder="State" autoComplete="address-level1" className={input} />
+        <input name="postalCode" placeholder="ZIP" inputMode="numeric" autoComplete="postal-code" className={input} />
       </div>
       <div>
         <input
@@ -160,7 +160,7 @@ export function StartWizard() {
 
       <button
         disabled={busy}
-        className="w-full rounded-full bg-zinc-900 py-3.5 font-semibold text-white disabled:opacity-60"
+        className="min-h-12 w-full rounded-full bg-zinc-900 px-4 font-semibold text-white disabled:opacity-60"
       >
         {busy ? "Reading your menu and building your site…" : "Generate my site"}
       </button>

@@ -26,7 +26,7 @@ export default async function TenantHome({ params }: PageProps<"/t/[slug]">) {
 
   return (
     <div>
-      <section className="py-14 text-center sm:py-20">
+      <section className="py-10 text-center sm:py-20">
         <p
           className="mb-3 text-xs font-semibold uppercase tracking-[0.2em]"
           style={{ color: "var(--t-accent)" }}
@@ -39,10 +39,10 @@ export default async function TenantHome({ params }: PageProps<"/t/[slug]">) {
             {r.description}
           </p>
         )}
-        <div className="mt-8 flex justify-center gap-3">
+        <div className="mx-auto mt-8 flex max-w-sm flex-col gap-3 sm:max-w-none sm:flex-row sm:justify-center">
           <Link
             href={`/t/${slug}/order`}
-            className="rounded-full px-6 py-3 font-semibold text-white"
+            className="inline-flex min-h-12 items-center justify-center rounded-full px-6 font-semibold text-white"
             style={{ background: "var(--t-accent)" }}
           >
             Order pickup
@@ -50,7 +50,7 @@ export default async function TenantHome({ params }: PageProps<"/t/[slug]">) {
           {r.reservationsEnabled && (
             <Link
               href={`/t/${slug}/reserve`}
-              className="rounded-full border px-6 py-3 font-medium"
+              className="inline-flex min-h-12 items-center justify-center rounded-full border px-6 font-medium"
               style={{ borderColor: "var(--t-line)" }}
             >
               Reserve a table
@@ -60,7 +60,7 @@ export default async function TenantHome({ params }: PageProps<"/t/[slug]">) {
       </section>
 
       <section id="menu">
-        <h2 className={`mb-6 text-2xl font-bold ${headingClass}`}>Menu</h2>
+        <h2 className={`mb-5 scroll-mt-20 text-2xl font-bold ${headingClass}`}>Menu</h2>
         <div className="space-y-10">
           {menu.map(({ section, items }) => (
             <div key={section.id}>
@@ -74,7 +74,7 @@ export default async function TenantHome({ params }: PageProps<"/t/[slug]">) {
                 {items.map((item) => (
                   <li
                     key={item.id}
-                    className="flex items-center justify-between gap-4 rounded-xl border p-4"
+                    className="flex items-start justify-between gap-3 rounded-xl border p-3.5 sm:items-center sm:gap-4 sm:p-4"
                     style={{
                       background: "var(--t-card)",
                       borderColor: "var(--t-line)",
@@ -86,7 +86,7 @@ export default async function TenantHome({ params }: PageProps<"/t/[slug]">) {
                       <img
                         src={item.photoUrl}
                         alt={item.name}
-                        className="h-16 w-16 shrink-0 rounded-lg object-cover"
+                        className="h-14 w-14 shrink-0 rounded-lg object-cover sm:h-16 sm:w-16"
                       />
                     )}
                     <div className="min-w-0 flex-1">
@@ -104,7 +104,7 @@ export default async function TenantHome({ params }: PageProps<"/t/[slug]">) {
                         </p>
                       )}
                     </div>
-                    <p className="shrink-0 font-semibold">{formatCents(item.priceCents)}</p>
+                    <p className="shrink-0 font-semibold tabular-nums">{formatCents(item.priceCents)}</p>
                   </li>
                 ))}
               </ul>
@@ -124,11 +124,11 @@ export default async function TenantHome({ params }: PageProps<"/t/[slug]">) {
             return (
               <li
                 key={day}
-                className="flex justify-between px-4 py-2.5"
+                className="flex justify-between gap-4 px-4 py-2.5"
                 style={{ borderColor: "var(--t-line)" }}
               >
                 <span className="font-medium">{day}</span>
-                <span style={{ color: "var(--t-muted)" }}>
+                <span className="text-right" style={{ color: "var(--t-muted)" }}>
                   {ranges.length === 0
                     ? "Closed"
                     : ranges.map(([o, c]) => `${fmtTime(o)} – ${fmtTime(c)}`).join(", ")}

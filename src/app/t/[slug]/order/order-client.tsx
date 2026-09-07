@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, useTransition } from "react";
+import { useEffect, useMemo, useRef, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { formatCents, TIP_PRESETS } from "@/lib/money";
 import { placeOrder } from "../actions";
@@ -36,12 +36,34 @@ export function OrderClient({
   const [consent, setConsent] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [pending, startTransition] = useTransition();
+  // Phones: the cart panel sits below the menu, so a bottom bar summarises it
+  // and jumps there. The bar hides once the panel itself is on screen.
+  const cartRef = useRef<HTMLElement>(null);
+  const [cartVisible, setCartVisible] = useState(false);
+  const cartLineCount = Object.values(cart).filter((q) => q > 0).length;
+  useEffect(() => {
+    const el = cartRef.current;
+    if (!el) return;
+    const check = () => {
+      const { top, bottom } = el.getBoundingClientRect();
+      // "On screen" means the panel's top has cleared the bottom bar's own height.
+      setCartVisible(top < window.innerHeight - 96 && bottom > 0);
+    };
+    check();
+    window.addEventListener("scroll", check, { passive: true });
+    window.addEventListener("resize", check);
+    return () => {
+      window.removeEventListener("scroll", check);
+      window.removeEventListener("resize", check);
+    };
+  }, [orderingPaused, cartLineCount]);
 
   const allItems = useMemo(
     () => new Map(menu.flatMap((s) => s.items).map((i) => [i.id, i])),
     [menu],
   );
   const lines = Object.entries(cart).filter(([, q]) => q > 0);
+  const itemCount = lines.reduce((sum, [, q]) => sum + q, 0);
   const subtotal = lines.reduce(
     (sum, [id, q]) => sum + (allItems.get(id)?.priceCents ?? 0) * q,
     0,
@@ -85,7 +107,7 @@ export function OrderClient({
   }
 
   return (
-    <div className="grid gap-8 py-8 lg:grid-cols-[1fr_320px]">
+    <div className="grid gap-8 py-6 pb-28 sm:py-8 lg:grid-cols-[1fr_320px] lg:pb-8">
       <div className="space-y-8">
         <h1 className="text-2xl font-bold">Order pickup</h1>
         {menu.map((section) => (
@@ -102,7 +124,7 @@ export function OrderClient({
                 return (
                   <li
                     key={item.id}
-                    className="flex items-center justify-between gap-3 rounded-xl border p-3"
+                    className="flex items-center justify-between gap-3 rounded-xl border p-2.5 pl-3"
                     style={{ background: "var(--t-card)", borderColor: "var(--t-line)" }}
                   >
                     {item.photoUrl && (
@@ -114,29 +136,29 @@ export function OrderClient({
                       />
                     )}
                     <div className="min-w-0 flex-1">
-                      <p className="font-semibold">{item.name}</p>
-                      <p className="text-sm" style={{ color: "var(--t-muted)" }}>
+                      <p className="font-semibold leading-snug">{item.name}</p>
+                      <p className="text-sm tabular-nums" style={{ color: "var(--t-muted)" }}>
                         {formatCents(item.priceCents)}
                       </p>
                     </div>
                     {qty === 0 ? (
                       <button
                         onClick={() => add(item.id, 1)}
-                        className="shrink-0 rounded-full border px-4 py-1.5 text-sm font-semibold"
+                        className="inline-flex min-h-11 shrink-0 items-center rounded-full border px-5 text-sm font-semibold"
                         style={{ borderColor: "var(--t-accent)", color: "var(--t-accent)" }}
                       >
                         Add
                       </button>
                     ) : (
                       <div
-                        className="flex shrink-0 items-center gap-3 rounded-full px-2 py-1 text-white"
+                        className="flex h-11 shrink-0 items-center rounded-full text-white"
                         style={{ background: "var(--t-accent)" }}
                       >
-                        <button onClick={() => add(item.id, -1)} className="px-2 text-lg leading-none" aria-label={`Remove one ${item.name}`}>
+                        <button onClick={() => add(item.id, -1)} className="h-full w-11 text-xl leading-none" aria-label={`Remove one ${item.name}`}>
                           −
                         </button>
-                        <span className="text-sm font-bold">{qty}</span>
-                        <button onClick={() => add(item.id, 1)} className="px-2 text-lg leading-none" aria-label={`Add one ${item.name}`}>
+                        <span className="min-w-5 text-center text-sm font-bold tabular-nums" aria-live="polite">{qty}</span>
+                        <button onClick={() => add(item.id, 1)} className="h-full w-11 text-xl leading-none" aria-label={`Add one ${item.name}`}>
                           +
                         </button>
                       </div>
@@ -149,9 +171,9 @@ export function OrderClient({
         ))}
       </div>
 
-      <aside className="lg:sticky lg:top-20 lg:self-start">
+      <aside ref={cartRef} id="your-order" className="scroll-mt-20 lg:sticky lg:top-20 lg:self-start">
         <div
-          className="rounded-2xl border p-5"
+          className="rounded-2xl border p-4 sm:p-5"
           style={{ background: "var(--t-card)", borderColor: "var(--t-line)" }}
         >
           <h2 className="mb-4 text-lg font-bold">Your order</h2>
@@ -181,7 +203,7 @@ export function OrderClient({
                     <button
                       key={p}
                       onClick={() => setTipPercent(p)}
-                      className="flex-1 rounded-lg border px-2 py-1.5 text-sm font-semibold"
+                      className="min-h-11 flex-1 rounded-lg border px-2 text-sm font-semibold"
                       style={
                         tipPercent === p
                           ? { background: "var(--t-accent)", borderColor: "var(--t-accent)", color: "#fff" }
@@ -206,15 +228,20 @@ export function OrderClient({
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="Your name"
-                  className="w-full rounded-lg border bg-transparent px-3 py-2 text-sm"
+                  autoComplete="name"
+                  enterKeyHint="next"
+                  className="min-h-11 w-full rounded-lg border bg-transparent px-3 text-sm"
                   style={{ borderColor: "var(--t-line)" }}
                 />
                 <input
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                   placeholder="Mobile number (for pickup texts)"
+                  type="tel"
                   inputMode="tel"
-                  className="w-full rounded-lg border bg-transparent px-3 py-2 text-sm"
+                  autoComplete="tel"
+                  enterKeyHint="next"
+                  className="min-h-11 w-full rounded-lg border bg-transparent px-3 text-sm"
                   style={{ borderColor: "var(--t-line)" }}
                 />
                 <textarea
@@ -222,15 +249,15 @@ export function OrderClient({
                   onChange={(e) => setNotes(e.target.value)}
                   placeholder="Notes for the kitchen (optional)"
                   rows={2}
-                  className="w-full rounded-lg border bg-transparent px-3 py-2 text-sm"
+                  className="w-full rounded-lg border bg-transparent px-3 py-2.5 text-sm"
                   style={{ borderColor: "var(--t-line)" }}
                 />
-                <label className="flex items-start gap-2 text-xs" style={{ color: "var(--t-muted)" }}>
+                <label className="flex min-h-11 items-center gap-2.5 text-xs" style={{ color: "var(--t-muted)" }}>
                   <input
                     type="checkbox"
                     checked={consent}
                     onChange={(e) => setConsent(e.target.checked)}
-                    className="mt-0.5"
+                    className="h-5 w-5 shrink-0"
                   />
                   The restaurant may text me about future offers.
                 </label>
@@ -243,7 +270,7 @@ export function OrderClient({
               <button
                 onClick={submit}
                 disabled={pending || !name || !phone}
-                className="mt-4 w-full rounded-full py-3 font-semibold text-white disabled:opacity-50"
+                className="mt-4 min-h-12 w-full rounded-full font-semibold text-white disabled:opacity-50"
                 style={{ background: "var(--t-accent)" }}
               >
                 {pending ? "Placing order…" : `Pay ${formatCents(total)}`}
@@ -261,6 +288,33 @@ export function OrderClient({
           )}
         </div>
       </aside>
+
+      {lines.length > 0 && !cartVisible && (
+        <div
+          className="fixed inset-x-0 bottom-0 z-30 border-t pb-safe shadow-[0_-8px_24px_rgba(0,0,0,0.08)] lg:hidden"
+          style={{ background: "var(--t-card)", borderColor: "var(--t-line)" }}
+        >
+          <div className="mx-auto flex max-w-4xl items-center justify-between gap-3 px-4 py-3">
+            <div className="min-w-0 text-sm">
+              <p className="font-semibold">
+                {itemCount} {itemCount === 1 ? "item" : "items"}
+              </p>
+              <p className="tabular-nums" style={{ color: "var(--t-muted)" }}>
+                {formatCents(total)} with tax and tip
+              </p>
+            </div>
+            <button
+              onClick={() =>
+                cartRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })
+              }
+              className="inline-flex min-h-12 shrink-0 items-center rounded-full px-6 font-semibold text-white"
+              style={{ background: "var(--t-accent)" }}
+            >
+              View order
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -14,7 +14,7 @@ export default async function MenuPage({ params }: PageProps<"/dashboard/[slug]/
   return (
     <div className="min-h-screen bg-zinc-50">
       <DashboardNav slug={slug} active="/menu" restaurantName={r.name} />
-      <main className="mx-auto max-w-3xl px-4 py-8">
+      <main className="mx-auto max-w-3xl px-4 py-6 sm:py-8">
         <MenuEditor
           slug={slug}
           menu={menu.map(({ section, items }) => ({

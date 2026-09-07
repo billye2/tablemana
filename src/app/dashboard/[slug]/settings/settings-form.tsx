@@ -57,14 +57,14 @@ export function SettingsForm({ slug, initial }: { slug: string; initial: Setting
     });
   }
 
-  const input = "w-full rounded-lg border border-zinc-300 px-3 py-2 text-sm";
+  const input = "min-h-11 w-full rounded-lg border border-zinc-300 px-3 py-2 text-sm sm:min-h-10";
   const label = "mb-1 block text-xs font-semibold uppercase tracking-wider text-zinc-500";
 
   return (
     <div className="space-y-6">
       <h2 className="text-lg font-bold text-zinc-900">Settings</h2>
 
-      <div className="space-y-4 rounded-xl border border-zinc-200 bg-white p-5">
+      <div className="space-y-4 rounded-xl border border-zinc-200 bg-white p-4 sm:p-5">
         <div>
           <label className={label}>Restaurant name</label>
           <input className={input} value={form.name} onChange={(e) => set("name", e.target.value)} />
@@ -95,14 +95,15 @@ export function SettingsForm({ slug, initial }: { slug: string; initial: Setting
         </div>
       </div>
 
-      <div className="space-y-4 rounded-xl border border-zinc-200 bg-white p-5">
+      <div className="space-y-4 rounded-xl border border-zinc-200 bg-white p-4 sm:p-5">
         <div>
           <label className={label}>Site template</label>
-          <div className="space-y-1.5">
+          <div className="space-y-1">
             {THEME_OPTIONS.map(([id, name]) => (
-              <label key={id} className="flex items-center gap-2 text-sm">
+              <label key={id} className="flex min-h-10 items-center gap-2.5 text-sm">
                 <input
                   type="radio"
+                  className="h-4 w-4"
                   checked={form.theme === id}
                   onChange={() => set("theme", id)}
                 />
@@ -117,12 +118,12 @@ export function SettingsForm({ slug, initial }: { slug: string; initial: Setting
             type="color"
             value={form.accent}
             onChange={(e) => set("accent", e.target.value)}
-            className="h-10 w-20 cursor-pointer rounded border border-zinc-300"
+            className="h-11 w-24 cursor-pointer rounded border border-zinc-300"
           />
         </div>
       </div>
 
-      <div className="space-y-3 rounded-xl border border-zinc-200 bg-white p-5">
+      <div className="space-y-3 rounded-xl border border-zinc-200 bg-white p-4 sm:p-5">
         <p className="text-sm font-bold text-zinc-900">Hours</p>
         <p className="text-xs text-zinc-500">
           Ranges like <code>11:00-21:00</code>, comma-separated for split service. Leave
@@ -130,7 +131,7 @@ export function SettingsForm({ slug, initial }: { slug: string; initial: Setting
         </p>
         {DAY_NAMES.map((day, i) => (
           <div key={day} className="flex items-center gap-3">
-            <span className="w-24 text-sm font-medium text-zinc-700">{day}</span>
+            <span className="w-20 shrink-0 text-sm font-medium text-zinc-700 sm:w-24">{day}</span>
             <input
               className={input}
               value={hoursText[String(i)]}
@@ -143,16 +144,17 @@ export function SettingsForm({ slug, initial }: { slug: string; initial: Setting
         ))}
       </div>
 
-      <div className="space-y-4 rounded-xl border border-zinc-200 bg-white p-5">
-        <label className="flex items-center gap-2 text-sm font-medium text-zinc-900">
+      <div className="space-y-4 rounded-xl border border-zinc-200 bg-white p-4 sm:p-5">
+        <label className="flex min-h-10 items-center gap-2.5 text-sm font-medium text-zinc-900">
           <input
             type="checkbox"
+            className="h-4 w-4"
             checked={form.reservationsEnabled}
             onChange={(e) => set("reservationsEnabled", e.target.checked)}
           />
           Accept reservations
         </label>
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid gap-4 sm:grid-cols-3">
           <div>
             <label className={label}>Covers / 30-min slot</label>
             <input
@@ -191,7 +193,7 @@ export function SettingsForm({ slug, initial }: { slug: string; initial: Setting
       <button
         disabled={pending}
         onClick={save}
-        className="rounded-lg bg-zinc-900 px-5 py-2.5 font-medium text-white disabled:opacity-50"
+        className="min-h-12 w-full rounded-lg bg-zinc-900 px-5 font-medium text-white disabled:opacity-50 sm:min-h-11 sm:w-auto"
       >
         {pending ? "Saving…" : "Save settings"}
       </button>

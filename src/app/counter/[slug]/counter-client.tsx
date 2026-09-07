@@ -86,9 +86,9 @@ export function CounterClient({
           isNew ? "border-amber-400 bg-amber-500/10" : "border-zinc-700 bg-zinc-900"
         }`}
       >
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between gap-3">
           <p className="text-2xl font-black tracking-widest">{o.code}</p>
-          <p className="text-sm text-zinc-400">
+          <p className="min-w-0 truncate text-right text-sm text-zinc-400">
             {o.customerName} · {age}m ago
           </p>
         </div>
@@ -124,14 +124,14 @@ export function CounterClient({
                     key={m}
                     disabled={pending}
                     onClick={() => act(() => counterAccept(slug, counterKey, o.id, m))}
-                    className="rounded-lg bg-emerald-600 px-4 py-3 text-lg font-bold disabled:opacity-50"
+                    className="min-h-12 flex-1 rounded-lg bg-emerald-600 px-4 text-lg font-bold disabled:opacity-50 sm:flex-none"
                   >
                     {m}m
                   </button>
                 ))}
                 <button
                   onClick={() => setEtaFor(null)}
-                  className="rounded-lg border border-zinc-600 px-4 py-3"
+                  className="min-h-12 rounded-lg border border-zinc-600 px-4"
                 >
                   Back
                 </button>
@@ -180,46 +180,57 @@ export function CounterClient({
 
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-100">
-      <header className="sticky top-0 z-10 border-b border-zinc-800 bg-zinc-950/95 px-4 py-3">
-        <div className="mx-auto flex max-w-5xl items-center justify-between gap-3">
-          <div>
-            <h1 className="font-bold">{restaurantName}</h1>
+      <header className="sticky top-0 z-10 border-b border-zinc-800 bg-zinc-950/95 px-4 py-2.5 pt-safe sm:py-3">
+        <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-x-3 gap-y-2">
+          <div className="min-w-0">
+            <h1 className="truncate font-bold">{restaurantName}</h1>
             <p className="text-xs text-zinc-400">Counter</p>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2">
             <a
               href={`/dashboard/${slug}/help#counter`}
-              className="rounded-lg bg-zinc-800 px-3 py-2 text-sm font-semibold text-zinc-300"
+              className="inline-flex min-h-11 items-center rounded-lg bg-zinc-800 px-3 text-sm font-semibold text-zinc-300"
               title="How the counter works"
+              aria-label="How the counter works"
             >
               ?
             </a>
             <button
               onClick={() => setTab("orders")}
-              className={`rounded-lg px-3 py-2 text-sm font-semibold ${tab === "orders" ? "bg-zinc-100 text-zinc-950" : "bg-zinc-800"}`}
+              className={`min-h-11 rounded-lg px-3 text-sm font-semibold ${tab === "orders" ? "bg-zinc-100 text-zinc-950" : "bg-zinc-800"}`}
             >
               Orders{incoming.length > 0 && ` (${incoming.length})`}
             </button>
             <button
               onClick={() => setTab("menu")}
-              className={`rounded-lg px-3 py-2 text-sm font-semibold ${tab === "menu" ? "bg-zinc-100 text-zinc-950" : "bg-zinc-800"}`}
+              className={`min-h-11 rounded-lg px-3 text-sm font-semibold ${tab === "menu" ? "bg-zinc-100 text-zinc-950" : "bg-zinc-800"}`}
             >
               86 board
             </button>
             <button
               disabled={pending}
               onClick={() => act(() => togglePause(slug, counterKey, !orderingPaused))}
-              className={`rounded-lg px-3 py-2 text-sm font-bold ${
+              className={`min-h-11 rounded-lg px-3 text-sm font-bold ${
                 orderingPaused ? "bg-red-600" : "bg-zinc-800 text-zinc-300"
               }`}
             >
-              {orderingPaused ? "Ordering PAUSED — resume" : "Pause ordering"}
+              {orderingPaused ? (
+                <>
+                  <span className="sm:hidden">PAUSED — resume</span>
+                  <span className="hidden sm:inline">Ordering PAUSED — resume</span>
+                </>
+              ) : (
+                <>
+                  <span className="sm:hidden">Pause</span>
+                  <span className="hidden sm:inline">Pause ordering</span>
+                </>
+              )}
             </button>
           </div>
         </div>
       </header>
 
-      <main className="mx-auto max-w-5xl px-4 py-6">
+      <main className="mx-auto max-w-5xl px-4 py-4 pb-safe sm:py-6">
         {tab === "orders" ? (
           <div className="grid gap-6 md:grid-cols-3">
             <section>

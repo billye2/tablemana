@@ -73,29 +73,29 @@ export default async function TenantLayout({
           background: "color-mix(in srgb, var(--t-bg) 88%, transparent)",
         }}
       >
-        <div className="mx-auto flex max-w-4xl items-center justify-between px-4 py-3">
+        <div className="mx-auto flex max-w-4xl items-center justify-between gap-3 px-4 py-2.5 sm:py-3">
           <Link
             href={`/t/${slug}`}
-            className={
+            className={`min-w-0 truncate ${
               theme.headingFont === "serif"
-                ? "text-xl font-semibold [font-family:var(--font-heading-serif)]"
-                : "text-xl font-extrabold tracking-tight"
-            }
+                ? "text-lg font-semibold [font-family:var(--font-heading-serif)] sm:text-xl"
+                : "text-lg font-extrabold tracking-tight sm:text-xl"
+            }`}
           >
             {r.name}
           </Link>
-          <nav className="flex items-center gap-2 text-sm">
+          <nav className="flex shrink-0 items-center gap-2 text-sm">
             <Link
               href={`/t/${slug}/order`}
-              className="rounded-full px-4 py-2 font-semibold text-white"
+              className="inline-flex min-h-11 items-center rounded-full px-4 font-semibold text-white"
               style={{ background: "var(--t-accent)" }}
             >
-              Order pickup
+              Order<span className="hidden sm:inline">&nbsp;pickup</span>
             </Link>
             {r.reservationsEnabled && (
               <Link
                 href={`/t/${slug}/reserve`}
-                className="rounded-full border px-4 py-2 font-medium"
+                className="inline-flex min-h-11 items-center rounded-full border px-4 font-medium"
                 style={{ borderColor: "var(--t-line)" }}
               >
                 Reserve
@@ -104,9 +104,9 @@ export default async function TenantLayout({
           </nav>
         </div>
       </header>
-      <main className="mx-auto w-full max-w-4xl flex-1 px-4 pb-16">{children}</main>
+      <main className="mx-auto w-full min-w-0 max-w-4xl flex-1 px-4 pb-16">{children}</main>
       <footer
-        className="border-t py-8 text-center text-sm"
+        className="border-t px-4 py-8 pb-safe text-center text-sm"
         style={{ borderColor: "var(--t-line)", color: "var(--t-muted)" }}
       >
         <p>

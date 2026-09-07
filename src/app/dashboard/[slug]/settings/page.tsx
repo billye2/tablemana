@@ -13,7 +13,7 @@ export default async function SettingsPage({ params }: PageProps<"/dashboard/[sl
   return (
     <div className="min-h-screen bg-zinc-50">
       <DashboardNav slug={slug} active="/settings" restaurantName={r.name} />
-      <main className="mx-auto max-w-2xl space-y-6 px-4 py-8">
+      <main className="mx-auto max-w-2xl space-y-6 px-4 py-6 sm:py-8">
         <CounterKey slug={slug} token={r.counterToken} />
         <SettingsForm
           slug={slug}

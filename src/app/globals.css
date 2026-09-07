@@ -22,6 +22,43 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  /* Phones: no sideways scroll from a long name or price, ever. */
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+}
+
+/*
+ * Mobile-first form controls. iOS Safari zooms the page when a focused
+ * field is smaller than 16px, so every control is 16px on phones and
+ * drops to the visual 14px only from the sm breakpoint up.
+ */
+input,
+textarea,
+select {
+  font-size: 16px;
+}
+@media (min-width: 40rem) {
+  input,
+  textarea,
+  select {
+    font-size: inherit;
+  }
+}
+
+/* Buttons and links are thumb targets: no 300ms delay, no grey tap flash. */
+button,
+a,
+label {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Safe-area helpers for notched phones (viewport-fit=cover in layout.tsx). */
+@utility pb-safe {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+@utility pt-safe {
+  padding-top: env(safe-area-inset-top);
 }
 
 input,

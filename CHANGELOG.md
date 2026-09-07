@@ -10,6 +10,27 @@ pushes (which deploys production) and creates the GitHub release from the
 matching section below. Write the next version's section before running the
 release.
 
+## [1.0.6] — 2026-09-07
+
+### Changed
+
+- **Mobile-first layout across every surface.** The diner site, landing page,
+  onboarding, owner dashboard, and counter now design for a phone first and
+  widen from the `sm`/`lg` breakpoints up. Concretely: a sticky "View order"
+  bar on the pickup page that summarises the cart and jumps to checkout (the
+  cart used to sit unreachable under the whole menu); 44px tap targets on
+  every button, chip, and stepper; form controls at 16px on phones so iOS no
+  longer zooms into a focused field; `type="tel"` and autocomplete hints on
+  phone, name, and address fields; headers that truncate long restaurant
+  names instead of overflowing; dashboard tabs that scroll sideways and
+  action buttons that drop under the title; the customers table folds "first
+  seen" into the name cell on phones; the counter header wraps and shortens
+  its labels; a `viewport-fit=cover` viewport with safe-area padding
+  utilities (`pb-safe`, `pt-safe`) for notched phones; and `overflow-x:
+  hidden` on the body so nothing scrolls sideways.
+- **Demo links open the order page** (`/t/restaurant-demo/order`) instead of
+  the restaurant front page, on the landing page and in public help.
+
 ## [1.0.5] — 2026-09-07
 
 ### Added

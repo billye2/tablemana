@@ -13,15 +13,17 @@ export default async function StartPage() {
   const email = user?.primaryEmailAddress?.emailAddress;
   return (
     <div className="min-h-screen bg-zinc-50">
-      <main className="mx-auto max-w-xl px-4 py-14">
-        <div className="mb-8 flex items-center justify-between text-sm text-zinc-500">
-          <span>
+      <main className="mx-auto max-w-xl px-4 py-8 sm:py-14">
+        <div className="mb-8 flex items-center justify-between gap-3 text-sm text-zinc-500">
+          <span className="min-w-0 truncate">
             Signed in{email ? ` as ${email}` : ""} ·{" "}
             <Link href="/dashboard" className="underline">
               your restaurants
             </Link>
           </span>
-          <UserButton />
+          <span className="shrink-0">
+            <UserButton />
+          </span>
         </div>
         <h1 className="text-3xl font-bold text-zinc-900">
           Menu photo in, live site out.

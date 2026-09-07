@@ -5,6 +5,32 @@ the fix, and the lesson. Newest first.
 
 ---
 
+## 2026-09-07 — The diner site was built desktop-first, on a product whose diners are on phones
+
+- **Symptom:** On a phone, the pickup page put the cart and Pay button below
+  the entire menu with nothing pointing to it; iOS zoomed into every form
+  field on focus; Add buttons and tip chips were ~32px tall; long restaurant
+  names pushed the header buttons off screen; dashboard tabs and the counter
+  header wrapped into three lines.
+- **Root cause:** Every layout was written at laptop width and only got
+  `sm:`/`lg:` variants where the desktop layout obviously broke. Nothing
+  enforced the phone baseline: 14px inputs (below iOS's 16px no-zoom
+  threshold), no minimum tap target, no viewport export, no safe-area
+  handling.
+- **Fix:** `src/app/globals.css` sets 16px form controls below `sm` and adds
+  `pb-safe`/`pt-safe`; `src/app/layout.tsx` exports a `viewport`; every
+  surface got `min-h-11` targets, truncating headers, and phone-first
+  stacking. `src/app/t/[slug]/order/order-client.tsx` adds a fixed bottom bar
+  that jumps to the cart and hides when the cart is on screen (a plain
+  scroll-position check; IntersectionObserver never fired inside the iframe
+  harness used to verify at 390px, so the scroll check is what was tested).
+- **Lesson:** For a product diners open from a QR code, the phone is the
+  default and the desktop is the variant. Write base classes for 375px and
+  add `sm:` up, and keep the three phone invariants in global CSS where a
+  page cannot forget them: 16px inputs, 44px targets, no horizontal scroll.
+
+---
+
 ## 2026-09-06 — Onboarding created restaurants that belonged to nobody
 
 - **Symptom:** Anyone could upload a menu and get a live ordering site with no

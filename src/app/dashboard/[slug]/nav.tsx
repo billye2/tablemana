@@ -20,23 +20,26 @@ export function DashboardNav({
 }) {
   return (
     <header className="border-b border-zinc-200 bg-white">
-      <div className="mx-auto max-w-5xl px-4 pt-5">
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-xl font-bold text-zinc-900">{restaurantName}</h1>
+      <div className="mx-auto max-w-5xl px-4 pt-4 sm:pt-5">
+        <div className="flex items-start justify-between gap-3">
+          <div className="min-w-0">
+            <h1 className="truncate text-xl font-bold text-zinc-900">{restaurantName}</h1>
             <p className="text-sm text-zinc-500">Owner dashboard</p>
           </div>
-          <div className="flex items-center gap-2 text-sm">
+          <span className="shrink-0 sm:hidden">
+            <UserButton />
+          </span>
+          <div className="hidden items-center gap-2 text-sm sm:flex">
             <a
               href={`/t/${slug}`}
               target="_blank"
-              className="rounded-lg border border-zinc-300 px-3 py-2 font-medium text-zinc-700"
+              className="inline-flex min-h-10 items-center rounded-lg border border-zinc-300 px-3 font-medium text-zinc-700"
             >
               View site ↗
             </a>
             <Link
               href={`/counter/${slug}`}
-              className="rounded-lg bg-zinc-900 px-3 py-2 font-medium text-white"
+              className="inline-flex min-h-10 items-center rounded-lg bg-zinc-900 px-3 font-medium text-white"
             >
               Open counter
             </Link>
@@ -45,12 +48,27 @@ export function DashboardNav({
             </span>
           </div>
         </div>
-        <nav className="mt-4 flex gap-1">
+        <div className="mt-3 grid grid-cols-2 gap-2 text-sm sm:hidden">
+          <a
+            href={`/t/${slug}`}
+            target="_blank"
+            className="inline-flex min-h-11 items-center justify-center rounded-lg border border-zinc-300 font-medium text-zinc-700"
+          >
+            View site ↗
+          </a>
+          <Link
+            href={`/counter/${slug}`}
+            className="inline-flex min-h-11 items-center justify-center rounded-lg bg-zinc-900 font-medium text-white"
+          >
+            Open counter
+          </Link>
+        </div>
+        <nav className="-mx-4 mt-3 flex gap-1 overflow-x-auto px-4 [scrollbar-width:none] sm:mt-4 [&::-webkit-scrollbar]:hidden">
           {TABS.map(([path, label]) => (
             <Link
               key={path}
               href={`/dashboard/${slug}${path}`}
-              className={`rounded-t-lg px-4 py-2 text-sm font-medium ${
+              className={`inline-flex min-h-11 shrink-0 items-center whitespace-nowrap rounded-t-lg px-3.5 text-sm font-medium sm:px-4 ${
                 active === path
                   ? "border border-b-0 border-zinc-200 bg-zinc-50 text-zinc-900"
                   : "text-zinc-500 hover:text-zinc-900"
