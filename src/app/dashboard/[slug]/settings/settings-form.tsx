@@ -121,6 +121,24 @@ export function SettingsForm({ slug, initial }: { slug: string; initial: Setting
             className="h-11 w-24 cursor-pointer rounded border border-zinc-300"
           />
         </div>
+        <div>
+          <label className={label}>Front page</label>
+          <label className="flex min-h-10 items-start gap-2.5 text-sm text-zinc-900">
+            <input
+              type="checkbox"
+              className="mt-0.5 h-4 w-4 shrink-0"
+              checked={form.homeRedirectsToOrder}
+              onChange={(e) => set("homeRedirectsToOrder", e.target.checked)}
+            />
+            <span>
+              <span className="font-medium">Send visitors straight to ordering</span>
+              <span className="block text-xs text-zinc-500">
+                Your web address opens the pickup order page. Leave this off to show the
+                front page first: description, menu with photos, hours, and address.
+              </span>
+            </span>
+          </label>
+        </div>
       </div>
 
       <div className="space-y-3 rounded-xl border border-zinc-200 bg-white p-4 sm:p-5">

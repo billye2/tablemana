@@ -153,6 +153,10 @@ export default function HelpPage() {
                 structured data tells search engines you are a restaurant.
               </p>
               <p>
+                Prefer to skip the front page? A setting sends visitors from your web
+                address straight to the pickup order page instead.
+              </p>
+              <p>
                 Everything updates the moment you change it in the dashboard, including
                 taking an item off for the day from the counter.
               </p>

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { formatCents } from "@/lib/money";
 import { getMenu, getRestaurantBySlug } from "@/lib/tenant";
 import { themeFor } from "@/lib/themes";
@@ -17,6 +17,8 @@ export default async function TenantHome({ params }: PageProps<"/t/[slug]">) {
   const { slug } = await params;
   const r = await getRestaurantBySlug(slug);
   if (!r) notFound();
+  // Owner setting: skip the front page and land on ordering.
+  if (r.homeRedirectsToOrder) redirect(`/t/${slug}/order`);
   const menu = await getMenu(r.id);
   const theme = themeFor(r.theme);
   const headingClass =

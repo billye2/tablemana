@@ -10,6 +10,16 @@ pushes (which deploys production) and creates the GitHub release from the
 matching section below. Write the next version's section before running the
 release.
 
+## [1.0.7] — 2026-09-07
+
+### Added
+
+- **Settings → Front page → "Send visitors straight to ordering."** Per
+  restaurant, off by default. When on, `/t/{slug}` redirects to
+  `/t/{slug}/order`; when off the front page (description, menu with photos,
+  hours, address) shows first. New column `restaurants.home_redirects_to_order`
+  (run `npm run db:push`). Documented in the owner help and public help.
+
 ## [1.0.6] — 2026-09-07
 
 ### Changed

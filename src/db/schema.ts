@@ -43,6 +43,9 @@ export const restaurants = pgTable("restaurants", {
   orderingPaused: boolean("ordering_paused").notNull().default(false),
   autoRejectMinutes: integer("auto_reject_minutes").notNull().default(15),
   reservationsEnabled: boolean("reservations_enabled").notNull().default(true),
+  // Owner choice: /t/{slug} sends visitors straight to /order instead of the
+  // front page (description, menu with photos, hours, address).
+  homeRedirectsToOrder: boolean("home_redirects_to_order").notNull().default(false),
   slotMinutes: integer("slot_minutes").notNull().default(30),
   coversPerSlot: integer("covers_per_slot").notNull().default(8),
   maxPartySize: integer("max_party_size").notNull().default(8),

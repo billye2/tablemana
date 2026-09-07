@@ -24,6 +24,7 @@ this up next._
 - **Counter tablet PWA:** installable, order columns, 86 board, pause ordering.
 - **Help, three audiences:** public `/help` (landing header/footer), diner `/t/{slug}/help` in the tenant theme (footer), owner `/dashboard/{slug}/help`. All hand-written prose — update alongside behavior changes.
 - **Demo disclaimers:** the reserve and checkout forms show "SMS provider not enabled" under their buttons while `isSmsConfigured()` is false; they vanish once the Twilio vars exist.
+- **Front-page redirect (v1.0.7):** `restaurants.home_redirects_to_order` (default false) — Settings checkbox "Send visitors straight to ordering"; `/t/{slug}` redirects to `/order` when set (`src/app/t/[slug]/page.tsx`). The header name link still goes to `/t/{slug}`, so it lands on ordering too while the flag is on.
 - **Mobile-first layout (v1.0.6):** base Tailwind classes target a 375px phone, `sm:`/`lg:` widen. Global invariants live in `src/app/globals.css`: 16px form controls below `sm` (iOS zoom), `pb-safe`/`pt-safe` utilities, `overflow-x: hidden` on body. Keep tap targets at `min-h-11`. The pickup page's bottom "View order" bar (`order-client.tsx`) hides via a scroll-position check once the cart panel is on screen.
 - **Tests + CI:** 156 vitest cases over the pure modules (`npm test`); GitHub Actions runs lint + typecheck + test + build on every push/PR.
 - **Payments gate:** simulated-paid checkout only runs outside production (`ALLOW_SIMULATED_PAYMENTS=1` overrides for demos).

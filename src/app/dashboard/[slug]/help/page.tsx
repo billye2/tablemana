@@ -239,6 +239,13 @@ export default async function HelpPage({ params }: PageProps<"/dashboard/[slug]/
                 buttons and highlights on whichever template you pick.
               </p>
               <p>
+                <strong>Front page → Send visitors straight to ordering</strong> makes
+                your web address open the pickup order page instead of the front page.
+                Turn it on when the menu is the whole story; leave it off if you want
+                diners to see your description, photos, hours, and address first. The
+                front page is still there either way, one tap on your name in the header.
+              </p>
+              <p>
                 <strong>Hours</strong> use ranges like <code>11:00-21:00</code>. Separate
                 lunch and dinner with a comma: <code>11:00-14:00, 17:00-22:00</code>. Leave
                 a day blank to show it as closed. Hours drive which reservation times are

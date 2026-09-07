@@ -112,6 +112,7 @@ const settingsSchema = z.object({
   maxPartySize: z.number().int().min(1).max(50),
   autoRejectMinutes: z.number().int().min(5).max(60),
   reservationsEnabled: z.boolean(),
+  homeRedirectsToOrder: z.boolean(),
   hours: z.record(
     z.string(),
     z.array(z.tuple([z.string().regex(/^\d{2}:\d{2}$/), z.string().regex(/^\d{2}:\d{2}$/)])),
@@ -141,6 +142,7 @@ export async function updateSettings(
       maxPartySize: s.maxPartySize,
       autoRejectMinutes: s.autoRejectMinutes,
       reservationsEnabled: s.reservationsEnabled,
+      homeRedirectsToOrder: s.homeRedirectsToOrder,
       hours: s.hours as WeeklyHours,
     })
     .where(eq(restaurants.id, r.id));

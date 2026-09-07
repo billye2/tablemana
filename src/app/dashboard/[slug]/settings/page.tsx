@@ -28,6 +28,7 @@ export default async function SettingsPage({ params }: PageProps<"/dashboard/[sl
             maxPartySize: r.maxPartySize,
             autoRejectMinutes: r.autoRejectMinutes,
             reservationsEnabled: r.reservationsEnabled,
+            homeRedirectsToOrder: r.homeRedirectsToOrder,
             hours: r.hours,
           }}
         />
