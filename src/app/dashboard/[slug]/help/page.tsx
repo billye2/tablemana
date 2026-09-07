@@ -48,7 +48,10 @@ export default async function HelpPage({ params }: PageProps<"/dashboard/[slug]/
           <h2 className="text-lg font-bold text-zinc-900">Help</h2>
           <p className="text-sm text-zinc-500">
             How the tablemana admin side works: the dashboard you are in now and the
-            counter screen for your tablet.
+            counter screen for your tablet. The public guide for prospects lives at{" "}
+            <a href="/help" className="underline">/help</a>, and diners get their own
+            page at{" "}
+            <a href={`/t/${slug}/help`} className="underline">/t/{slug}/help</a>.
           </p>
         </div>
 

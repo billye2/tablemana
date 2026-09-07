@@ -36,6 +36,9 @@ export default function Landing() {
       <header className="mx-auto flex max-w-5xl items-center justify-between px-4 py-5">
         <span className="text-lg font-black tracking-tight">▲ tablemana</span>
         <div className="flex items-center gap-4 text-sm">
+          <Link href="/help" className="font-medium text-zinc-600">
+            Help
+          </Link>
           <Show
             when="signed-in"
             fallback={
@@ -135,7 +138,10 @@ export default function Landing() {
       </main>
 
       <footer className="py-10 text-center text-sm text-zinc-500">
-        © {new Date().getFullYear()} tablemana
+        © {new Date().getFullYear()} tablemana ·{" "}
+        <Link href="/help" className="underline">
+          Help
+        </Link>
       </footer>
     </div>
   );

@@ -29,7 +29,9 @@ pending — see HANDOFF).
 | Sign in / sign up | `/sign-in`, `/sign-up` (Clerk: email code or Google) |
 | Owner dashboard | `/dashboard` (picker) → `/dashboard/{slug}` — needs a Clerk session that owns the restaurant |
 | Counter tablet PWA | `/counter/{slug}?key={counterToken}` — tablet key from Settings, or the owner's session |
-| Owner help | `/dashboard/{slug}/help` (linked from the dashboard tabs and the counter header) |
+| Public help | `/help` — prospects and owners before sign-in (landing header + footer) |
+| Diner help | `/t/{slug}/help` — how ordering and booking work at that restaurant, in its theme (tenant footer) |
+| Owner help | `/dashboard/{slug}/help` (dashboard Help tab and the counter header) |
 
 ## Development
 

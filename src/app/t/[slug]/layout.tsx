@@ -115,7 +115,12 @@ export default async function TenantLayout({
           {r.region} {r.postalCode}
           {r.phone && ` · ${r.phone}`}
         </p>
-        <p className="mt-1">© {new Date().getFullYear()} {r.name}</p>
+        <p className="mt-1">
+          © {new Date().getFullYear()} {r.name} ·{" "}
+          <Link href={`/t/${slug}/help`} className="underline">
+            How ordering works
+          </Link>
+        </p>
       </footer>
     </div>
   );
