@@ -74,6 +74,11 @@ this up next._
 
 ```bash
 npm run lint && npm run build       # must be clean before deploy
+
+Release: write the next "## [x.y.z]" CHANGELOG.md section, `npm run release`
+(odometer bump 0–9 per segment, runs `npm run check`, commits "Release vx.y.z",
+tags), then `npm run release:publish` (push = deploy, GitHub release from the
+changelog). Same scheme as pdfmana. Version shows on /dashboard/{slug}/help.
 npm run db:seed                     # rebuild the golden-poppy demo
 curl -s -X POST <base>/api/onboard -F name=Test -F "menu=@menu.png;type=image/png"
 ```

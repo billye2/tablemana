@@ -1,4 +1,5 @@
 import { requireOwner } from "@/lib/owner";
+import { APP_VERSION } from "@/lib/version";
 import { DashboardNav, Unauthorized } from "../nav";
 
 export const dynamic = "force-dynamic";
@@ -309,6 +310,7 @@ export default async function HelpPage({
             </div>
           </section>
         </div>
+        <p className="mt-10 text-center text-xs text-zinc-400">tablemana v{APP_VERSION}</p>
       </main>
     </div>
   );

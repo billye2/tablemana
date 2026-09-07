@@ -75,3 +75,15 @@ vercel deploy --prod   # production
 
 Secrets live only in Vercel env (`vercel env add NAME production --sensitive`);
 run local commands that need them through `vercel env run -- <cmd>`.
+
+## Releases
+
+Versions follow the pdfmana odometer scheme: each segment counts 0–9 and
+carries (`1.0.9` → `1.1.0`). The version shows at the bottom of the owner help
+page and is read from `package.json`.
+
+```bash
+# 1. write the "## [x.y.z]" section in CHANGELOG.md for the NEXT version
+npm run release           # bump → npm run check → "Release vx.y.z" commit → tag
+npm run release:publish   # push main + tag (deploys) → GitHub release from the changelog
+```
