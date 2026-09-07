@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import { isSmsConfigured } from "@/lib/sms";
 import { getMenu, getRestaurantBySlug } from "@/lib/tenant";
 import { OrderClient } from "./order-client";
 
@@ -13,6 +14,7 @@ export default async function OrderPage({ params }: PageProps<"/t/[slug]/order">
       slug={slug}
       orderingPaused={r.orderingPaused}
       taxRateBps={r.taxRateBps}
+      smsEnabled={isSmsConfigured()}
       menu={menu.map(({ section, items }) => ({
         id: section.id,
         name: section.name,

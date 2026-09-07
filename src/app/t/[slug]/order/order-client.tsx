@@ -19,11 +19,13 @@ export function OrderClient({
   menu,
   taxRateBps,
   orderingPaused,
+  smsEnabled,
 }: {
   slug: string;
   menu: SectionLite[];
   taxRateBps: number;
   orderingPaused: boolean;
+  smsEnabled: boolean;
 }) {
   const router = useRouter();
   const [cart, setCart] = useState<Record<string, number>>({});
@@ -249,6 +251,12 @@ export function OrderClient({
               <p className="mt-2 text-center text-xs" style={{ color: "var(--t-muted)" }}>
                 Pay online now — pick up when we text you it&apos;s ready.
               </p>
+              {!smsEnabled && (
+                <p className="mt-2 text-center text-xs" style={{ color: "var(--t-muted)" }}>
+                  This is a demo: the SMS provider is not enabled, so no texts will be
+                  sent. Your order page shows the live status instead.
+                </p>
+              )}
             </>
           )}
         </div>
