@@ -8,6 +8,9 @@ export const metadata: Metadata = {
     "A generated website with online ordering and reservations. Flat pricing, your customer data, live in ten minutes from a menu photo.",
 };
 
+/** A real tenant kept as the public showcase; its owner dashboard is private. */
+const DEMO_URL = "/t/restaurant-demo";
+
 const FEATURES = [
   [
     "No commissions. Ever.",
@@ -63,7 +66,7 @@ export default function Landing() {
             A website with online ordering and reservations, generated from a
             photo of your menu. Flat pricing. Your data. Live today.
           </p>
-          <div className="mt-8 flex justify-center gap-3">
+          <div className="mt-8 flex flex-wrap justify-center gap-3">
             <Link
               href="/start"
               className="rounded-full bg-zinc-900 px-7 py-3.5 font-semibold text-white"
@@ -71,12 +74,24 @@ export default function Landing() {
               Generate my site
             </Link>
             <a
+              href={DEMO_URL}
+              target="_blank"
+              rel="noreferrer"
+              className="rounded-full border border-zinc-900 px-7 py-3.5 font-semibold text-zinc-900"
+            >
+              See a live demo ↗
+            </a>
+            <a
               href="#pricing"
               className="rounded-full border border-zinc-300 px-7 py-3.5 font-semibold"
             >
               Pricing
             </a>
           </div>
+          <p className="mt-3 text-sm text-zinc-500">
+            The demo is a real generated site: browse the menu, place a test order,
+            book a table.
+          </p>
         </section>
 
         <section className="mx-auto grid max-w-5xl gap-5 px-4 pb-20 sm:grid-cols-2">
