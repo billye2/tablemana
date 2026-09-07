@@ -4,7 +4,7 @@ Multi-tenant SaaS for independent restaurants (formerly "tableside"): upload a m
 website with online ordering (prepaid pickup) and reservations — flat pricing,
 no commissions, the restaurant owns its customer data.
 
-**Production:** https://tablemana.vercel.app · demo tenant: [/t/golden-poppy](https://tablemana.vercel.app/t/golden-poppy)
+**Production:** https://tablemana.vercel.app · public demo: [/t/restaurant-demo/order](https://tablemana.vercel.app/t/restaurant-demo/order) (the landing page links straight to ordering; `golden-poppy` is the seeded dev tenant)
 
 - `PLAN.md` — product spec and decisions (with build-time changes in §9)
 - `HANDOFF.md` — current state, credentials map, open items
@@ -12,7 +12,7 @@ no commissions, the restaurant owns its customer data.
 
 ## Stack
 
-Next.js 16 (App Router) on Vercel · Neon Postgres via Drizzle · Claude API
+Mobile-first layout (base Tailwind classes target a phone; `sm:`/`lg:` widen) · Next.js 16 (App Router) on Vercel · Neon Postgres via Drizzle · Claude API
 (`claude-haiku-4-5`) for menu ingestion · Clerk for owner accounts · Vercel Blob for dish photos · Pexels
 for stock photo defaults · Stripe Connect + Twilio SMS (adapters built, keys
 pending — see HANDOFF).

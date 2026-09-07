@@ -12,7 +12,7 @@ export const metadata: Metadata = {
  * A real tenant kept as the public showcase; its owner dashboard is private.
  * Lands on the order page: that is the product, the front page is a detour.
  */
-const DEMO_URL = "/t/restaurant-demo";
+const DEMO_URL = "/t/restaurant-demo/order";
 
 const FEATURES = [
   [

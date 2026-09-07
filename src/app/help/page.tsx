@@ -119,7 +119,7 @@ export default function HelpPage() {
               </ol>
               <p>
                 Want to see the result first?{" "}
-                <a href="/t/restaurant-demo" className="font-medium underline" target="_blank" rel="noreferrer">
+                <a href="/t/restaurant-demo/order" className="font-medium underline" target="_blank" rel="noreferrer">
                   Open the live demo restaurant
                 </a>
                 .
