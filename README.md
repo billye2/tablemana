@@ -4,7 +4,7 @@ Multi-tenant SaaS for independent restaurants (formerly "tableside"): upload a m
 website with online ordering (prepaid pickup) and reservations — flat pricing,
 no commissions, the restaurant owns its customer data.
 
-**Production:** https://tableside-mu.vercel.app · demo tenant: [/t/golden-poppy](https://tableside-mu.vercel.app/t/golden-poppy)
+**Production:** https://tablemana.vercel.app · demo tenant: [/t/golden-poppy](https://tablemana.vercel.app/t/golden-poppy)
 
 - `PLAN.md` — product spec and decisions (with build-time changes in §9)
 - `HANDOFF.md` — current state, credentials map, open items

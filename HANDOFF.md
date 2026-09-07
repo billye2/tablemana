@@ -27,7 +27,7 @@ this up next._
 
 ## Live URLs
 
-- Production: **https://tableside-mu.vercel.app** (Vercel project `tableside`, git-connected: push to `main` deploys)
+- Production: **https://tablemana.vercel.app** (Vercel project `tableside`, git-connected: push to `main` deploys)
 - Demo tenant: `/t/golden-poppy` — owner key for dashboard/counter is the
   `ownerToken` column in the `restaurants` table (re-seed prints it; treat as
   secret).
