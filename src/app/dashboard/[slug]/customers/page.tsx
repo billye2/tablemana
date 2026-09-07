@@ -6,13 +6,9 @@ import { DashboardNav, Unauthorized } from "../nav";
 
 export const dynamic = "force-dynamic";
 
-export default async function CustomersPage({
-  params,
-  searchParams,
-}: PageProps<"/dashboard/[slug]/customers">) {
+export default async function CustomersPage({ params }: PageProps<"/dashboard/[slug]/customers">) {
   const { slug } = await params;
-  const { key } = (await searchParams) as { key?: string };
-  const r = await requireOwner(slug, key);
+  const r = await requireOwner(slug);
   if (!r) return <Unauthorized />;
 
   const list = await db

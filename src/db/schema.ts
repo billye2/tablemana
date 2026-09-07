@@ -47,7 +47,13 @@ export const restaurants = pgTable("restaurants", {
   coversPerSlot: integer("covers_per_slot").notNull().default(8),
   maxPartySize: integer("max_party_size").notNull().default(8),
   stripeAccountId: text("stripe_account_id"),
-  ownerToken: text("owner_token").notNull(),
+  // Clerk user who owns this restaurant. Null only for tenants created before
+  // accounts existed; the first signed-in visit with the legacy key claims them.
+  ownerUserId: text("owner_user_id"),
+  ownerEmail: text("owner_email"),
+  // Shared-device key for the counter tablet (column keeps its pre-accounts
+  // name). Rotated from Settings; never grants dashboard access on its own.
+  counterToken: text("owner_token").notNull(),
   createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
 });
 

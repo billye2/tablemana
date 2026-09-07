@@ -31,13 +31,9 @@ const ORDER_STEPS: [string, string, string][] = [
   ["Auto-refunded", "Nobody accepted it inside the window. Refunded in full.", "“We couldn't confirm order ABCD in time. You have NOT been charged.”"],
 ];
 
-export default async function HelpPage({
-  params,
-  searchParams,
-}: PageProps<"/dashboard/[slug]/help">) {
+export default async function HelpPage({ params }: PageProps<"/dashboard/[slug]/help">) {
   const { slug } = await params;
-  const { key } = (await searchParams) as { key?: string };
-  const r = await requireOwner(slug, key);
+  const r = await requireOwner(slug);
   if (!r) return <Unauthorized />;
 
   const h2 = "scroll-mt-24 text-lg font-bold text-zinc-900";
@@ -73,14 +69,20 @@ export default async function HelpPage({
             <h2 id="access" className={h2}>Getting in</h2>
             <div className={card}>
               <p>
-                Your dashboard and counter links end in a secret key. The first time you
-                open one, the key is moved into a cookie in that browser and dropped from
-                the address bar, so the plain link keeps working on that device.
+                The dashboard belongs to your account. Sign in with your email (a one-time
+                code) or with Google from any device and your restaurants are there. Use
+                the account menu in the top right to sign out or change your email.
               </p>
               <p>
-                Keep the original link from the setup screen somewhere safe. It is the
-                only way into the account on a new device, and anyone holding it can run
-                your restaurant. There is no password reset yet.
+                The counter tablet is different: it holds a per-restaurant key instead of
+                your login, so a tablet left by the register can never open this
+                dashboard. Copy the tablet link, or issue a fresh key if a tablet goes
+                missing, under <span className={kbd}>Settings → Counter tablet</span>.
+              </p>
+              <p>
+                Had a restaurant before accounts existed? Sign in, then open your original
+                welcome link once. Its key proves the restaurant is yours and attaches it
+                to your account.
               </p>
               <p>
                 <span className={kbd}>View site ↗</span> opens what diners see.{" "}
@@ -249,6 +251,11 @@ export default async function HelpPage({
                 <strong>Auto-refund after</strong> is the counter clock described above,
                 from 5 to 60 minutes. Shorter is a stronger promise to diners; longer
                 gives a busy counter more slack.
+              </p>
+              <p>
+                <strong>Counter tablet</strong> at the top shows the tablet link and lets you
+                issue a new key. Issuing one locks out every tablet on the old link until
+                it opens the new one, which is exactly what you want if a device walks off.
               </p>
               <p>Nothing is saved until you tap <span className={kbd}>Save settings</span>.</p>
             </div>

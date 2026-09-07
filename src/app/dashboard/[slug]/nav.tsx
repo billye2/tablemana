@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { SignOutButton, UserButton } from "@clerk/nextjs";
 
 const TABS = [
   ["", "Overview"],
@@ -25,7 +26,7 @@ export function DashboardNav({
             <h1 className="text-xl font-bold text-zinc-900">{restaurantName}</h1>
             <p className="text-sm text-zinc-500">Owner dashboard</p>
           </div>
-          <div className="flex gap-2 text-sm">
+          <div className="flex items-center gap-2 text-sm">
             <a
               href={`/t/${slug}`}
               target="_blank"
@@ -39,6 +40,9 @@ export function DashboardNav({
             >
               Open counter
             </Link>
+            <span className="ml-1">
+              <UserButton />
+            </span>
           </div>
         </div>
         <nav className="mt-4 flex gap-1">
@@ -63,8 +67,19 @@ export function DashboardNav({
 
 export function Unauthorized() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 text-zinc-600">
-      <p>Invalid or missing dashboard key. Open the link from your welcome email.</p>
+    <div className="flex min-h-screen flex-col items-center justify-center gap-3 bg-zinc-50 px-4 text-center text-zinc-600">
+      <p>This restaurant belongs to a different account.</p>
+      <p className="text-sm">
+        Signed in with the wrong email?{" "}
+        <SignOutButton>
+          <button className="underline">Sign out</button>
+        </SignOutButton>{" "}
+        and try again, or open the original welcome link while signed in to claim an
+        older restaurant.
+      </p>
+      <Link href="/dashboard" className="text-sm underline">
+        Your restaurants
+      </Link>
     </div>
   );
 }

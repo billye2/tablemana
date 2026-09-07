@@ -27,15 +27,7 @@ function textToRanges(text: string): [string, string][] | null {
   return out;
 }
 
-export function SettingsForm({
-  slug,
-  ownerKey,
-  initial,
-}: {
-  slug: string;
-  ownerKey: string;
-  initial: SettingsInput;
-}) {
+export function SettingsForm({ slug, initial }: { slug: string; initial: SettingsInput }) {
   const [form, setForm] = useState(initial);
   const [hoursText, setHoursText] = useState<Record<string, string>>(
     Object.fromEntries(
@@ -60,7 +52,7 @@ export function SettingsForm({
       hours[day] = ranges;
     }
     startTransition(async () => {
-      const result = await updateSettings(slug, ownerKey, { ...form, hours });
+      const result = await updateSettings(slug, { ...form, hours });
       setStatus(result.ok ? "Saved." : (result.error ?? "Something went wrong."));
     });
   }

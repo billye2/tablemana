@@ -1,5 +1,6 @@
 "use server";
 
+import { randomBytes } from "node:crypto";
 import { and, eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
@@ -13,8 +14,8 @@ import {
 } from "@/db/schema";
 import { requireOwner } from "@/lib/owner";
 
-async function owner(slug: string, key: string) {
-  const r = await requireOwner(slug, key);
+async function owner(slug: string) {
+  const r = await requireOwner(slug);
   if (!r) throw new Error("Unauthorized");
   return r;
 }
@@ -26,8 +27,8 @@ function refresh(slug: string) {
 
 // ---- Menu management -------------------------------------------------------
 
-export async function addSection(slug: string, key: string, name: string): Promise<void> {
-  const r = await owner(slug, key);
+export async function addSection(slug: string, name: string): Promise<void> {
+  const r = await owner(slug);
   if (!name.trim()) return;
   const existing = await db
     .select()
@@ -41,8 +42,8 @@ export async function addSection(slug: string, key: string, name: string): Promi
   refresh(slug);
 }
 
-export async function deleteSection(slug: string, key: string, sectionId: string): Promise<void> {
-  const r = await owner(slug, key);
+export async function deleteSection(slug: string, sectionId: string): Promise<void> {
+  const r = await owner(slug);
   await db
     .delete(menuSections)
     .where(and(eq(menuSections.id, sectionId), eq(menuSections.restaurantId, r.id)));
@@ -57,11 +58,10 @@ const itemSchema = z.object({
 
 export async function addItem(
   slug: string,
-  key: string,
   sectionId: string,
   input: { name: string; description?: string; priceCents: number },
 ): Promise<void> {
-  const r = await owner(slug, key);
+  const r = await owner(slug);
   const parsed = itemSchema.parse(input);
   await db.insert(menuItems).values({
     restaurantId: r.id,
@@ -75,11 +75,10 @@ export async function addItem(
 
 export async function updateItem(
   slug: string,
-  key: string,
   itemId: string,
   input: { name: string; description?: string; priceCents: number },
 ): Promise<void> {
-  const r = await owner(slug, key);
+  const r = await owner(slug);
   const parsed = itemSchema.parse(input);
   await db
     .update(menuItems)
@@ -92,8 +91,8 @@ export async function updateItem(
   refresh(slug);
 }
 
-export async function deleteItem(slug: string, key: string, itemId: string): Promise<void> {
-  const r = await owner(slug, key);
+export async function deleteItem(slug: string, itemId: string): Promise<void> {
+  const r = await owner(slug);
   await db
     .delete(menuItems)
     .where(and(eq(menuItems.id, itemId), eq(menuItems.restaurantId, r.id)));
@@ -123,10 +122,9 @@ export type SettingsInput = z.infer<typeof settingsSchema>;
 
 export async function updateSettings(
   slug: string,
-  key: string,
   input: SettingsInput,
 ): Promise<{ ok: boolean; error?: string }> {
-  const r = await owner(slug, key);
+  const r = await owner(slug);
   const parsed = settingsSchema.safeParse(input);
   if (!parsed.success) return { ok: false, error: "Invalid settings." };
   const s = parsed.data;
@@ -154,14 +152,27 @@ export async function updateSettings(
 
 export async function setReservationStatus(
   slug: string,
-  key: string,
   reservationId: string,
   status: "seated" | "no_show" | "canceled",
 ): Promise<void> {
-  const r = await owner(slug, key);
+  const r = await owner(slug);
   await db
     .update(reservations)
     .set({ status })
     .where(and(eq(reservations.id, reservationId), eq(reservations.restaurantId, r.id)));
   refresh(slug);
+}
+
+// ---- Counter tablet key ----------------------------------------------------
+
+/**
+ * Issue a new tablet key. Every device holding the old one (cookie or link)
+ * loses the counter until it opens the new link from Settings.
+ */
+export async function rotateCounterToken(slug: string): Promise<string> {
+  const r = await owner(slug);
+  const counterToken = randomBytes(16).toString("hex");
+  await db.update(restaurants).set({ counterToken }).where(eq(restaurants.id, r.id));
+  revalidatePath(`/dashboard/${slug}/settings`);
+  return counterToken;
 }

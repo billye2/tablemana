@@ -10,6 +10,35 @@ pushes (which deploys production) and creates the GitHub release from the
 matching section below. Write the next version's section before running the
 release.
 
+## [1.0.1] — 2026-09-06
+
+### Added
+
+- **Owner accounts via Clerk** — sign in with an email code or Google. A
+  restaurant now belongs to a Clerk user (`owner_user_id`), so the dashboard
+  opens from any device with a login instead of a bookmarked secret link, and
+  the menu upload (which spends Claude credits) only runs for a signed-in
+  person. `/dashboard` lists your restaurants or jumps straight into the only
+  one. Restaurants created before accounts existed are claimed by opening their
+  old welcome link once while signed in.
+- **Separate counter tablet key** — the old owner token now opens the counter
+  only. Settings → Counter tablet shows the tablet link, copies it, and issues a
+  new key when a device goes missing. The owner's own session also opens the
+  counter, so no key is needed on the owner's phone.
+
+### Changed
+
+- The help page's "Getting in" chapter describes accounts and the tablet key;
+  the landing header shows Sign in or Dashboard depending on session state.
+- Proxy routing logic moved to `src/lib/routing.ts` so it stays unit-testable
+  under Clerk's middleware wrapper; new `src/lib/access.ts` holds the pure
+  owner/counter decisions with tests (156 cases total).
+
+### Migration
+
+- Two nullable columns on `restaurants`: `owner_user_id`, `owner_email`
+  (`vercel env run -e production -- npm run db:push`).
+
 ## [1.0.0] — 2026-09-06
 
 Baseline release stamping the first fully-live state under the tablemana name.
@@ -39,4 +68,5 @@ Baseline release stamping the first fully-live state under the tablemana name.
   from its own git-connected project, with the Neon resource verified as its
   database and the sensitive API keys re-entered.
 
+[1.0.1]: https://github.com/billye2/tablemana/releases/tag/v1.0.1
 [1.0.0]: https://github.com/billye2/tablemana/releases/tag/v1.0.0

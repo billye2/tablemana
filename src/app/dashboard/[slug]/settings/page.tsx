@@ -1,25 +1,22 @@
 import { requireOwner } from "@/lib/owner";
 import { DashboardNav, Unauthorized } from "../nav";
+import { CounterKey } from "./counter-key";
 import { SettingsForm } from "./settings-form";
 
 export const dynamic = "force-dynamic";
 
-export default async function SettingsPage({
-  params,
-  searchParams,
-}: PageProps<"/dashboard/[slug]/settings">) {
+export default async function SettingsPage({ params }: PageProps<"/dashboard/[slug]/settings">) {
   const { slug } = await params;
-  const { key } = (await searchParams) as { key?: string };
-  const r = await requireOwner(slug, key);
+  const r = await requireOwner(slug);
   if (!r) return <Unauthorized />;
 
   return (
     <div className="min-h-screen bg-zinc-50">
       <DashboardNav slug={slug} active="/settings" restaurantName={r.name} />
-      <main className="mx-auto max-w-2xl px-4 py-8">
+      <main className="mx-auto max-w-2xl space-y-6 px-4 py-8">
+        <CounterKey slug={slug} token={r.counterToken} />
         <SettingsForm
           slug={slug}
-          ownerKey={key ?? ""}
           initial={{
             name: r.name,
             description: r.description ?? "",

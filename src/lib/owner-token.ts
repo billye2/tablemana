@@ -1,6 +1,6 @@
 import { timingSafeEqual } from "node:crypto";
 
-/** Name of the HttpOnly cookie that carries a restaurant's owner token. */
+/** Name of the HttpOnly cookie that carries a restaurant's counter key (name predates accounts). */
 export function ownerCookieName(slug: string): string {
   return `ts_owner_${slug}`;
 }
@@ -14,7 +14,7 @@ export function tokensMatch(presented: string | undefined | null, expected: stri
   return timingSafeEqual(a, b);
 }
 
-/** Owner-gated paths whose ?key= should be moved into the cookie by the proxy. */
+/** Paths whose ?key= should be moved into the cookie by the proxy: the counter link, and legacy dashboard links used to claim a tenant. */
 export function ownerSlugFromPath(pathname: string): string | null {
   const m = /^\/(?:dashboard|counter)\/([^/?#]+)/.exec(pathname);
   return m ? m[1] : null;

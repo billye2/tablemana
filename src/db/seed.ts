@@ -54,7 +54,7 @@ async function seed() {
       accent: "#b45309",
       coversPerSlot: 10,
       maxPartySize: 8,
-      ownerToken: randomBytes(16).toString("hex"),
+      counterToken: randomBytes(16).toString("hex"),
     })
     .returning();
 
@@ -78,8 +78,8 @@ async function seed() {
 
   console.log(`Seeded ${r.name}`);
   console.log(`  tenant site:  http://${slug}.localhost:3000/`);
-  console.log(`  dashboard:    http://localhost:3000/dashboard/${slug}?key=${r.ownerToken}`);
-  console.log(`  counter:      http://localhost:3000/counter/${slug}?key=${r.ownerToken}`);
+  console.log(`  dashboard:    http://localhost:3000/dashboard/${slug}  (sign in, then open with ?key=${r.counterToken} once to claim)`);
+  console.log(`  counter:      http://localhost:3000/counter/${slug}?key=${r.counterToken}`);
 }
 
 seed().then(() => process.exit(0));

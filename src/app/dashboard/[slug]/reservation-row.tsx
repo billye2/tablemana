@@ -5,14 +5,12 @@ import { setReservationStatus } from "./actions";
 
 export function ReservationRow({
   slug,
-  ownerKey,
   id,
   status,
   label,
   who,
 }: {
   slug: string;
-  ownerKey: string;
   id: string;
   status: string;
   label: string;
@@ -20,7 +18,7 @@ export function ReservationRow({
 }) {
   const [pending, startTransition] = useTransition();
   const act = (s: "seated" | "no_show" | "canceled") =>
-    startTransition(() => setReservationStatus(slug, ownerKey, id, s));
+    startTransition(() => setReservationStatus(slug, id, s));
 
   return (
     <li className="flex flex-wrap items-center justify-between gap-2 px-5 py-3 text-sm">

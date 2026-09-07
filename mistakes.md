@@ -5,6 +5,26 @@ the fix, and the lesson. Newest first.
 
 ---
 
+## 2026-09-06 — Onboarding created restaurants that belonged to nobody
+
+- **Symptom:** Anyone could upload a menu and get a live ordering site with no
+  email or login attached. The only credential was a random token in a link;
+  lose the link and the restaurant was unreachable, and every anonymous upload
+  spent Claude credits.
+- **Root cause:** v1 shipped with a "token now, accounts later" stopgap and the
+  stopgap became the product. The same token also opened both the dashboard and
+  the shared counter tablet.
+- **Fix:** Clerk owner accounts (`src/lib/owner.ts`, `src/proxy.ts`,
+  `src/app/api/onboard/route.ts`): onboarding and the dashboard require a
+  session, restaurants carry `owner_user_id`, and the old token is demoted to a
+  counter-only key rotated from Settings. Pure decisions live in
+  `src/lib/access.ts` with tests.
+- **Lesson:** Anything that spends money or creates a durable tenant needs an
+  identity behind it from day one. And one credential should open one surface:
+  a device left on a counter must not be an admin login.
+
+---
+
 ## 2026-09-06 — Production URL dead: the Vercel project had been taken over by another app
 
 - **Symptom:** https://rc02-ivory.vercel.app returned `DEPLOYMENT_NOT_FOUND` on

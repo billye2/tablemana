@@ -78,15 +78,7 @@ function ItemForm({
   );
 }
 
-export function MenuEditor({
-  slug,
-  ownerKey,
-  menu,
-}: {
-  slug: string;
-  ownerKey: string;
-  menu: SectionLite[];
-}) {
+export function MenuEditor({ slug, menu }: { slug: string; menu: SectionLite[] }) {
   const router = useRouter();
   const [pending, startTransition] = useTransition();
   const [editing, setEditing] = useState<string | null>(null);
@@ -99,7 +91,6 @@ export function MenuEditor({
     try {
       const form = new FormData();
       form.set("slug", slug);
-      form.set("key", ownerKey);
       form.set("itemId", itemId);
       form.set("photo", file);
       const res = await fetch("/api/upload-photo", { method: "POST", body: form });
@@ -119,7 +110,7 @@ export function MenuEditor({
       await fetch("/api/upload-photo", {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ slug, key: ownerKey, itemId }),
+        body: JSON.stringify({ slug, itemId }),
       });
       router.refresh();
     } finally {
@@ -154,7 +145,7 @@ export function MenuEditor({
                 disabled={pending}
                 onClick={() => {
                   if (confirm(`Delete section "${section.name}" and all its items?`)) {
-                    run(() => deleteSection(slug, ownerKey, section.id));
+                    run(() => deleteSection(slug, section.id));
                   }
                 }}
                 className="text-red-600"
@@ -169,7 +160,7 @@ export function MenuEditor({
                 <ItemForm
                   pending={pending}
                   onCancel={() => setAddingTo(null)}
-                  onSubmit={(v) => run(() => addItem(slug, ownerKey, section.id, v))}
+                  onSubmit={(v) => run(() => addItem(slug, section.id, v))}
                 />
               </li>
             )}
@@ -180,7 +171,7 @@ export function MenuEditor({
                     initial={item}
                     pending={pending}
                     onCancel={() => setEditing(null)}
-                    onSubmit={(v) => run(() => updateItem(slug, ownerKey, item.id, v))}
+                    onSubmit={(v) => run(() => updateItem(slug, item.id, v))}
                   />
                 ) : (
                   <div className="flex items-center justify-between gap-3 rounded-lg border border-zinc-200 bg-white px-4 py-3">
@@ -252,7 +243,7 @@ export function MenuEditor({
                         disabled={pending}
                         onClick={() => {
                           if (confirm(`Delete "${item.name}"?`)) {
-                            run(() => deleteItem(slug, ownerKey, item.id));
+                            run(() => deleteItem(slug, item.id));
                           }
                         }}
                         className="text-red-600"
@@ -279,7 +270,7 @@ export function MenuEditor({
           disabled={pending || !newSection.trim()}
           onClick={() =>
             run(async () => {
-              await addSection(slug, ownerKey, newSection);
+              await addSection(slug, newSection);
               setNewSection("");
             })
           }

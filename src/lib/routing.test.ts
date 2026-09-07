@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { NextRequest } from "next/server";
-import proxy from "./proxy";
+import { routeRequest as proxy } from "./routing";
 
 const req = (url: string) => new NextRequest(url, { headers: { host: new URL(url).host } });
 

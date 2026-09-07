@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Show } from "@clerk/nextjs";
 
 export const metadata: Metadata = {
   title: "Your restaurant, online — no commissions",
@@ -31,12 +32,26 @@ export default function Landing() {
     <div className="min-h-screen bg-white text-zinc-900">
       <header className="mx-auto flex max-w-5xl items-center justify-between px-4 py-5">
         <span className="text-lg font-black tracking-tight">▲ tablemana</span>
-        <Link
-          href="/start"
-          className="rounded-full bg-zinc-900 px-5 py-2.5 text-sm font-semibold text-white"
-        >
-          Get started free
-        </Link>
+        <div className="flex items-center gap-4 text-sm">
+          <Show
+            when="signed-in"
+            fallback={
+              <Link href="/sign-in" className="font-medium text-zinc-600">
+                Sign in
+              </Link>
+            }
+          >
+            <Link href="/dashboard" className="font-medium text-zinc-600">
+              Dashboard
+            </Link>
+          </Show>
+          <Link
+            href="/start"
+            className="rounded-full bg-zinc-900 px-5 py-2.5 font-semibold text-white"
+          >
+            Get started free
+          </Link>
+        </div>
       </header>
 
       <main>

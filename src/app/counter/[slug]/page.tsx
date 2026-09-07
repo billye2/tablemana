@@ -2,7 +2,7 @@ import { and, desc, eq, gte, inArray, sql } from "drizzle-orm";
 import { db } from "@/db";
 import { customers, menuItems, menuSections, orderItems, orders } from "@/db/schema";
 import { sweepStaleOrders } from "@/lib/auto-reject";
-import { requireOwner } from "@/lib/owner";
+import { requireCounter } from "@/lib/owner";
 import { CounterClient } from "./counter-client";
 
 export const dynamic = "force-dynamic";
@@ -13,11 +13,11 @@ export default async function CounterPage({
 }: PageProps<"/counter/[slug]">) {
   const { slug } = await params;
   const { key } = (await searchParams) as { key?: string };
-  const r = await requireOwner(slug, key);
+  const r = await requireCounter(slug, key);
   if (!r) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-zinc-950 text-zinc-100">
-        <p>Invalid or missing counter key. Open the link from your welcome email.</p>
+        <p>Invalid or missing counter key. Copy the tablet link from Settings in your dashboard.</p>
       </div>
     );
   }

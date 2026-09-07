@@ -12,11 +12,10 @@ const MAX_BYTES = 8 * 1024 * 1024;
 export async function POST(req: NextRequest) {
   const form = await req.formData();
   const slug = String(form.get("slug") ?? "");
-  const key = String(form.get("key") ?? "");
   const itemId = String(form.get("itemId") ?? "");
   const photo = form.get("photo");
 
-  const r = await requireOwner(slug, key);
+  const r = await requireOwner(slug);
   if (!r) return NextResponse.json({ error: "unauthorized" }, { status: 401 });
   if (!(photo instanceof File) || photo.size === 0) {
     return NextResponse.json({ error: "Attach a photo." }, { status: 400 });
@@ -51,12 +50,8 @@ export async function POST(req: NextRequest) {
 
 /** Remove a dish photo. */
 export async function DELETE(req: NextRequest) {
-  const { slug, key, itemId } = (await req.json()) as {
-    slug?: string;
-    key?: string;
-    itemId?: string;
-  };
-  const r = await requireOwner(slug ?? "", key);
+  const { slug, itemId } = (await req.json()) as { slug?: string; itemId?: string };
+  const r = await requireOwner(slug ?? "");
   if (!r) return NextResponse.json({ error: "unauthorized" }, { status: 401 });
 
   const [item] = await db

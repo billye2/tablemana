@@ -10,7 +10,7 @@ import {
   markReady,
   rejectOrder,
 } from "@/lib/orders";
-import { requireOwner } from "@/lib/owner";
+import { requireCounter } from "@/lib/owner";
 
 async function getOrder(restaurantId: string, orderId: string) {
   const [order] = await db
@@ -26,7 +26,7 @@ export async function counterAccept(
   orderId: string,
   etaMinutes: number,
 ): Promise<void> {
-  const r = await requireOwner(slug, key);
+  const r = await requireCounter(slug, key);
   if (!r) throw new Error("Unauthorized");
   const order = await getOrder(r.id, orderId);
   if (!order) throw new Error("Order not found");
@@ -40,7 +40,7 @@ export async function counterReject(
   orderId: string,
   reason?: string,
 ): Promise<void> {
-  const r = await requireOwner(slug, key);
+  const r = await requireCounter(slug, key);
   if (!r) throw new Error("Unauthorized");
   const order = await getOrder(r.id, orderId);
   if (!order) throw new Error("Order not found");
@@ -49,7 +49,7 @@ export async function counterReject(
 }
 
 export async function counterReady(slug: string, key: string, orderId: string): Promise<void> {
-  const r = await requireOwner(slug, key);
+  const r = await requireCounter(slug, key);
   if (!r) throw new Error("Unauthorized");
   const order = await getOrder(r.id, orderId);
   if (!order) throw new Error("Order not found");
@@ -58,7 +58,7 @@ export async function counterReady(slug: string, key: string, orderId: string): 
 }
 
 export async function counterPickedUp(slug: string, key: string, orderId: string): Promise<void> {
-  const r = await requireOwner(slug, key);
+  const r = await requireCounter(slug, key);
   if (!r) throw new Error("Unauthorized");
   const order = await getOrder(r.id, orderId);
   if (!order) throw new Error("Order not found");
@@ -67,7 +67,7 @@ export async function counterPickedUp(slug: string, key: string, orderId: string
 }
 
 export async function togglePause(slug: string, key: string, paused: boolean): Promise<void> {
-  const r = await requireOwner(slug, key);
+  const r = await requireCounter(slug, key);
   if (!r) throw new Error("Unauthorized");
   await db
     .update(restaurants)
@@ -82,7 +82,7 @@ export async function toggleItemAvailable(
   menuItemId: string,
   available: boolean,
 ): Promise<void> {
-  const r = await requireOwner(slug, key);
+  const r = await requireCounter(slug, key);
   if (!r) throw new Error("Unauthorized");
   await db
     .update(menuItems)

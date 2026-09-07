@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react";
 
-type Result = { slug: string; ownerToken: string; itemCount: number; theme: string };
+type Result = { slug: string; counterToken: string; itemCount: number; theme: string };
 
 const MENU_TYPES = ["image/jpeg", "image/png", "image/webp", "image/gif", "application/pdf"];
 
@@ -70,7 +70,7 @@ export function StartWizard() {
           </li>
           <li>
             <a
-              href={`/dashboard/${result.slug}?key=${result.ownerToken}`}
+              href={`/dashboard/${result.slug}`}
               className="font-semibold text-emerald-900 underline"
             >
               Open your dashboard →
@@ -78,7 +78,7 @@ export function StartWizard() {
           </li>
           <li>
             <a
-              href={`/counter/${result.slug}?key=${result.ownerToken}`}
+              href={`/counter/${result.slug}?key=${result.counterToken}`}
               className="font-semibold text-emerald-900 underline"
             >
               Open the counter screen (install this on your tablet) →
@@ -86,8 +86,8 @@ export function StartWizard() {
           </li>
         </ul>
         <p className="mt-4 text-xs text-emerald-700">
-          Bookmark the dashboard link — it&apos;s your key to the account until you set
-          up a login.
+          The dashboard is tied to your account — sign in from any device. The counter
+          link carries the tablet key; you can copy or regenerate it from Settings.
         </p>
       </div>
     );

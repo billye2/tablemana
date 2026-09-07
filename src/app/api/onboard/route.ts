@@ -1,4 +1,5 @@
 import { eq } from "drizzle-orm";
+import { auth, currentUser } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
 import { randomBytes } from "node:crypto";
 import { z } from "zod";
@@ -43,6 +44,13 @@ async function uniqueSlug(base: string): Promise<string> {
 const ACCEPTED = ["image/jpeg", "image/png", "image/webp", "image/gif", "application/pdf"];
 
 export async function POST(req: NextRequest) {
+  // The proxy already requires a session here; this is the belt to its braces,
+  // and it is what ties the restaurant (and the Claude spend) to a person.
+  const { userId } = await auth();
+  if (!userId) return NextResponse.json({ error: "Sign in to create a restaurant." }, { status: 401 });
+  const user = await currentUser();
+  const ownerEmail = user?.primaryEmailAddress?.emailAddress ?? null;
+
   const form = await req.formData();
   const raw = Object.fromEntries(form.entries());
   if (typeof raw.taxRatePercent === "string" && raw.taxRatePercent.trim() === "") {
@@ -111,7 +119,9 @@ export async function POST(req: NextRequest) {
       taxRateBps: Math.round(fields.taxRatePercent * 100),
       theme: ingested?.theme ?? "classic",
       accent: ingested?.accentHex?.toLowerCase() ?? "#b45309",
-      ownerToken: randomBytes(16).toString("hex"),
+      ownerUserId: userId,
+      ownerEmail,
+      counterToken: randomBytes(16).toString("hex"),
     })
     .returning();
 
@@ -154,7 +164,7 @@ export async function POST(req: NextRequest) {
 
   return NextResponse.json({
     slug,
-    ownerToken: r.ownerToken,
+    counterToken: r.counterToken,
     itemCount: ingested?.sections.reduce((n, s) => n + s.items.length, 0) ?? 0,
     theme: r.theme,
   });

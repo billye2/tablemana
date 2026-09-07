@@ -13,7 +13,7 @@ no commissions, the restaurant owns its customer data.
 ## Stack
 
 Next.js 16 (App Router) on Vercel · Neon Postgres via Drizzle · Claude API
-(`claude-haiku-4-5`) for menu ingestion · Vercel Blob for dish photos · Pexels
+(`claude-haiku-4-5`) for menu ingestion · Clerk for owner accounts · Vercel Blob for dish photos · Pexels
 for stock photo defaults · Stripe Connect + Twilio SMS (adapters built, keys
 pending — see HANDOFF).
 
@@ -26,8 +26,9 @@ pending — see HANDOFF).
 | Tenant diner site | `/t/{slug}` (or `{slug}.$ROOT_DOMAIN` with a custom domain) |
 | Ordering / status | `/t/{slug}/order`, `/t/{slug}/order/{id}` |
 | Reservations | `/t/{slug}/reserve` |
-| Owner dashboard | `/dashboard/{slug}?key={ownerToken}` |
-| Counter tablet PWA | `/counter/{slug}?key={ownerToken}` |
+| Sign in / sign up | `/sign-in`, `/sign-up` (Clerk: email code or Google) |
+| Owner dashboard | `/dashboard` (picker) → `/dashboard/{slug}` — needs a Clerk session that owns the restaurant |
+| Counter tablet PWA | `/counter/{slug}?key={counterToken}` — tablet key from Settings, or the owner's session |
 | Owner help | `/dashboard/{slug}/help` (linked from the dashboard tabs and the counter header) |
 
 ## Development

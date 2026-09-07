@@ -9,13 +9,9 @@ import { ReservationRow } from "./reservation-row";
 
 export const dynamic = "force-dynamic";
 
-export default async function DashboardOverview({
-  params,
-  searchParams,
-}: PageProps<"/dashboard/[slug]">) {
+export default async function DashboardOverview({ params }: PageProps<"/dashboard/[slug]">) {
   const { slug } = await params;
-  const { key } = (await searchParams) as { key?: string };
-  const r = await requireOwner(slug, key);
+  const r = await requireOwner(slug);
   if (!r) return <Unauthorized />;
 
   const [todayStats] = await db
@@ -89,7 +85,6 @@ export default async function DashboardOverview({
                   <ReservationRow
                     key={reservation.id}
                     slug={slug}
-                    ownerKey={key ?? ""}
                     id={reservation.id}
                     status={reservation.status}
                     label={`${formatSlotFull(reservation.slotStart, r.timezone)} · party of ${reservation.partySize}`}

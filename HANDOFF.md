@@ -47,7 +47,8 @@ this up next._
 | Twilio SMS | **no account** | Not on Vercel marketplace. Adapter in `src/lib/sms.ts` reads `TWILIO_ACCOUNT_SID/AUTH_TOKEN/FROM_NUMBER`; logs to stdout until set |
 | Cron auth | Vercel env `CRON_SECRET` | Production only, sensitive, generated 2026-09-06. Vercel sends it as the bearer token on `/api/cron/auto-reject`; the route fails closed in production without it |
 | Custom domain | **none** | Buy + add wildcard to project, set `ROOT_DOMAIN` env → tenant subdomains activate automatically (`src/lib/tenant.ts`, `src/proxy.ts`) |
-| Owner auth | **v1 token → HttpOnly cookie** | Welcome link carries `?key={ownerToken}` once; proxy stores it in `ts_owner_{slug}` cookie and strips the URL; constant-time compare. Clerk planned (marketplace-native) |
+| Owner auth | **Clerk** (marketplace resource `clerk-violet-clock`, env `CLERK_SECRET_KEY` + `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`) | `restaurants.owner_user_id` = Clerk user id, `owner_email` snapshot. `src/proxy.ts` wraps `clerkMiddleware` and protects /start, /dashboard, /api/onboard, /api/export, /api/upload-photo. Legacy tenants (null owner) are claimed by the first signed-in visit that presents the old `?key=`. Sign-in methods (email code, Google) are configured in the Clerk dashboard: `vercel integration open clerk` |
+| Counter key | `restaurants.owner_token` column, exposed as `counterToken` | Tablet-only credential: `/counter/{slug}?key=` → proxy parks it in the `ts_owner_{slug}` cookie. Rotated from Settings → Counter tablet. Never opens the dashboard |
 
 ## Open work (in rough order)
 
@@ -55,7 +56,6 @@ this up next._
    completion (currently the dev path marks paid synchronously).
 2. **Pexels key** — one signup, activates stock photos.
 3. **Twilio** — account + 3 env vars; SMS then goes live everywhere at once.
-4. **Owner accounts (Clerk)** — replace `?key=` token links.
 5. **Custom domain + `ROOT_DOMAIN`** — pretty tenant subdomains.
 6. **Phone verification at checkout** (plan §5.5) — deferred until Twilio.
 7. From the plan, untouched: Google Places lookup at onboarding, sitemap, SMS

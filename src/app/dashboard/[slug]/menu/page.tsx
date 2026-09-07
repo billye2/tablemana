@@ -5,13 +5,9 @@ import { MenuEditor } from "./menu-editor";
 
 export const dynamic = "force-dynamic";
 
-export default async function MenuPage({
-  params,
-  searchParams,
-}: PageProps<"/dashboard/[slug]/menu">) {
+export default async function MenuPage({ params }: PageProps<"/dashboard/[slug]/menu">) {
   const { slug } = await params;
-  const { key } = (await searchParams) as { key?: string };
-  const r = await requireOwner(slug, key);
+  const r = await requireOwner(slug);
   if (!r) return <Unauthorized />;
   const menu = await getMenu(r.id);
 
@@ -21,7 +17,6 @@ export default async function MenuPage({
       <main className="mx-auto max-w-3xl px-4 py-8">
         <MenuEditor
           slug={slug}
-          ownerKey={key ?? ""}
           menu={menu.map(({ section, items }) => ({
             id: section.id,
             name: section.name,
