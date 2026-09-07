@@ -27,11 +27,13 @@ export function ReserveClient({
   timezone,
   maxPartySize,
   dates,
+  smsEnabled,
 }: {
   slug: string;
   timezone: string;
   maxPartySize: number;
   dates: string[];
+  smsEnabled: boolean;
 }) {
   const [date, setDate] = useState(dates[0]);
   const [slotsData, setSlotsData] = useState<{ date: string; slots: SlotLite[] } | null>(
@@ -210,6 +212,12 @@ export function ReserveClient({
           >
             {pending ? "Booking…" : `Book table for ${partySize}`}
           </button>
+          {!smsEnabled && (
+            <p className="mt-3 text-center text-xs" style={{ color: "var(--t-muted)" }}>
+              This is a demo: the SMS provider is not enabled, so no confirmation text
+              will be sent. Your booking is still recorded.
+            </p>
+          )}
         </div>
       )}
     </div>

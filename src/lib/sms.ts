@@ -35,3 +35,10 @@ export async function sendSms(to: string, body: string): Promise<boolean> {
     return false;
   }
 }
+
+/** True once Twilio credentials exist; pages use this to tell diners when texts are off. */
+export function isSmsConfigured(): boolean {
+  return Boolean(
+    process.env.TWILIO_ACCOUNT_SID && process.env.TWILIO_AUTH_TOKEN && process.env.TWILIO_FROM_NUMBER,
+  );
+}

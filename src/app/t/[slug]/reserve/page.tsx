@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import { isSmsConfigured } from "@/lib/sms";
 import { getRestaurantBySlug } from "@/lib/tenant";
 import { todayInTz } from "@/lib/time";
 import { ReserveClient } from "./reserve-client";
@@ -15,6 +16,7 @@ export default async function ReservePage({ params }: PageProps<"/t/[slug]/reser
       timezone={r.timezone}
       maxPartySize={r.maxPartySize}
       dates={dates}
+      smsEnabled={isSmsConfigured()}
     />
   );
 }
