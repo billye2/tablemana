@@ -42,9 +42,10 @@ this up next._
 | Claude API key | Vercel env `ANTHROPIC_API_KEY` | Preview + Production, sensitive (not pullable); model `claude-haiku-4-5` in `src/lib/ingest.ts` |
 | Blob store | `tableside-photos` (public) | `BLOB_READ_WRITE_TOKEN` in all envs |
 | Pexels | Vercel env `PEXELS_API_KEY` | Preview + Production, sensitive; stock photos active |
-| Stripe | **not provisioned** | Marketplace terms not yet accepted: https://vercel.com/billys-projects-7712fade/~/integrations/accept-terms/stripe?source=cli — then `vercel integration add stripe --no-claim`. Adapter ready in `src/lib/payments.ts` (Connect Standard, 50¢ app fee); dev-only fallback = simulated-paid; production refuses orders until Stripe is live |
+| Stripe | **not provisioned** (`STRIPE_SECRET_KEY` unset) | Marketplace terms not yet accepted: https://vercel.com/billys-projects-7712fade/~/integrations/accept-terms/stripe?source=cli — then `vercel integration add stripe --no-claim`. Adapter ready in `src/lib/payments.ts` (Connect Standard, 50¢ app fee); dev-only fallback = simulated-paid; production refuses orders until Stripe is live |
 | Resend (email) | **not provisioned** | Terms: .../accept-terms/resend — only messaging provider on the marketplace (no SMS) |
 | Twilio SMS | **no account** | Not on Vercel marketplace. Adapter in `src/lib/sms.ts` reads `TWILIO_ACCOUNT_SID/AUTH_TOKEN/FROM_NUMBER`; logs to stdout until set |
+| Cron auth | Vercel env `CRON_SECRET` | Production only, sensitive, generated 2026-09-06. Vercel sends it as the bearer token on `/api/cron/auto-reject`; the route fails closed in production without it |
 | Custom domain | **none** | Buy + add wildcard to project, set `ROOT_DOMAIN` env → tenant subdomains activate automatically (`src/lib/tenant.ts`, `src/proxy.ts`) |
 | Owner auth | **v1 token → HttpOnly cookie** | Welcome link carries `?key={ownerToken}` once; proxy stores it in `ts_owner_{slug}` cookie and strips the URL; constant-time compare. Clerk planned (marketplace-native) |
 
