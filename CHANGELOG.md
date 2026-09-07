@@ -10,6 +10,14 @@ pushes (which deploys production) and creates the GitHub release from the
 matching section below. Write the next version's section before running the
 release.
 
+## [1.0.9] — 2026-09-07
+
+### Fixed
+
+- **Sales tax % accepts decimals.** The field re-parsed on every keystroke,
+  so the decimal point in `8.25` vanished as soon as it was typed. It is now
+  edited as text and parsed on save, with a 0–30 range message.
+
 ## [1.0.8] — 2026-09-07
 
 ### Added
