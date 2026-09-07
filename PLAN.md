@@ -165,4 +165,4 @@ One restaurant proves the demo; three prove the product.
    Pexels at onboarding (needs `PEXELS_API_KEY`, free) + owner uploads stored in
    Vercel Blob (`tableside-photos` store) replacing them. Photos render on the
    diner site, order page, and menu editor.
-4. **Working name is "tablemana"** (renamed from "tableside" on 2026-09-06; the GitHub repo is now billye2/tablemana and the site is tablemana.vercel.app, while the Vercel project `tableside` and Blob store `tableside-photos` keep their old names).
+4. **Working name is "tablemana"** (renamed from "tableside" on 2026-09-06; the GitHub repo is now billye2/tablemana and the site is tablemana.vercel.app, and the Vercel project is `tablemana`; only the Blob store `tableside-photos` keeps the old name).

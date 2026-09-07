@@ -27,7 +27,7 @@ this up next._
 
 ## Live URLs
 
-- Production: **https://tablemana.vercel.app** (Vercel project `tableside`, git-connected: push to `main` deploys)
+- Production: **https://tablemana.vercel.app** (Vercel project `tablemana`, git-connected: push to `main` deploys)
 - Demo tenant: `/t/golden-poppy` — owner key for dashboard/counter is the
   `ownerToken` column in the `restaurants` table (re-seed prints it; treat as
   secret).
@@ -37,8 +37,8 @@ this up next._
 
 | Thing | Where | Notes |
 |---|---|---|
-| Vercel project | `billys-projects-7712fade/tableside` (since 2026-09-06) | CLI logged in as `billye-2920`. The original project `rc02` was taken over and renamed `scanmana` by another app on 2026-08-31; nothing of tableside runs there any more |
-| Neon Postgres | Marketplace resource `neon-chestnut-jacket` — the live restaurant DB, connected only to `tableside` | `DATABASE_URL` in all envs; schema via `npm run db:push`. Never delete this resource |
+| Vercel project | `billys-projects-7712fade/tablemana` (created 2026-09-06 as `tableside`, renamed the same day) | CLI logged in as `billye-2920`. The original project `rc02` was taken over and renamed `scanmana` by another app on 2026-08-31; nothing of tableside runs there any more |
+| Neon Postgres | Marketplace resource `neon-chestnut-jacket` — the live restaurant DB, connected only to `tablemana` | `DATABASE_URL` in all envs; schema via `npm run db:push`. Never delete this resource |
 | Claude API key | Vercel env `ANTHROPIC_API_KEY` | Preview + Production, sensitive (not pullable); model `claude-haiku-4-5` in `src/lib/ingest.ts` |
 | Blob store | `tableside-photos` (public) | `BLOB_READ_WRITE_TOKEN` in all envs |
 | Pexels | Vercel env `PEXELS_API_KEY` | Preview + Production, sensitive; stock photos active |

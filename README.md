@@ -63,7 +63,7 @@ npm run check     # lint + typecheck + test + build — what CI runs
 
 ## Deploy
 
-The Vercel project `tableside` is connected to this GitHub repo: every push to
+The Vercel project `tablemana` is connected to this GitHub repo: every push to
 `main` deploys to production and every other branch gets a preview. Manual
 deploys still work:
 
