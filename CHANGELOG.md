@@ -10,6 +10,19 @@ pushes (which deploys production) and creates the GitHub release from the
 matching section below. Write the next version's section before running the
 release.
 
+## [1.0.3] — 2026-09-07
+
+### Added
+
+- **Help everywhere, not just the admin side.** `/help` is a public guide for
+  prospects and owners before they sign in: setup steps, pricing, the website,
+  ordering with the auto-refund promise, reservations, customer data, accounts
+  and the tablet key, and an FAQ. Linked from the landing header and footer.
+  Each restaurant site gets `/t/{slug}/help` in its own theme for diners: how
+  pickup works, the refund guarantee with that restaurant's real window,
+  reservations (or a note that they are off), what happens to their details,
+  and how to reach the restaurant. Linked from the tenant footer.
+
 ## [1.0.2] — 2026-09-07
 
 ### Added
@@ -77,6 +90,7 @@ Baseline release stamping the first fully-live state under the tablemana name.
   from its own git-connected project, with the Neon resource verified as its
   database and the sensitive API keys re-entered.
 
+[1.0.3]: https://github.com/billye2/tablemana/releases/tag/v1.0.3
 [1.0.2]: https://github.com/billye2/tablemana/releases/tag/v1.0.2
 [1.0.1]: https://github.com/billye2/tablemana/releases/tag/v1.0.1
 [1.0.0]: https://github.com/billye2/tablemana/releases/tag/v1.0.0
