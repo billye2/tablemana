@@ -231,7 +231,10 @@ export default async function HelpPage({ params }: PageProps<"/dashboard/[slug]/
             <div className={card}>
               <p>
                 <strong>Name, description, phone</strong> appear on the site header and in
-                search results. <strong>Sales tax %</strong> is added to every order.
+                search results. <strong>Street address, city, state, ZIP</strong> show in
+                the site footer, beside the order page heading, and in the structured data
+                search engines read; leave a part blank and it is simply left out.{" "}
+                <strong>Sales tax %</strong> is added to every order.
               </p>
               <p>
                 <strong>Site template</strong> switches between three looks: Classic (warm,

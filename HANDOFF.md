@@ -20,7 +20,7 @@ this up next._
   currently absent → silently skipped) + owner uploads to Vercel Blob from the
   menu editor (verified: upload → Blob → DB → renders).
 - **Owner dashboard:** stats, menu editor (with photo controls), settings
-  (hours/tax/template/capacity), customer list with consent-flagged CSV export, and a Help tab (`/dashboard/{slug}/help`) describing every admin behavior — update it in the same change when admin behavior changes.
+  (hours/tax/template/capacity/address/front-page redirect), customer list with consent-flagged CSV export, and a Help tab (`/dashboard/{slug}/help`) describing every admin behavior — update it in the same change when admin behavior changes.
 - **Counter tablet PWA:** installable, order columns, 86 board, pause ordering.
 - **Help, three audiences:** public `/help` (landing header/footer), diner `/t/{slug}/help` in the tenant theme (footer), owner `/dashboard/{slug}/help`. All hand-written prose — update alongside behavior changes.
 - **Demo disclaimers:** the reserve and checkout forms show "SMS provider not enabled" under their buttons while `isSmsConfigured()` is false; they vanish once the Twilio vars exist.

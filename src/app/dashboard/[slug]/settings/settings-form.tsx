@@ -78,10 +78,55 @@ export function SettingsForm({ slug, initial }: { slug: string; initial: Setting
             onChange={(e) => set("description", e.target.value)}
           />
         </div>
+        <div>
+          <label className={label}>Street address</label>
+          <input
+            className={input}
+            autoComplete="address-line1"
+            value={form.address1}
+            onChange={(e) => set("address1", e.target.value)}
+          />
+        </div>
+        <div className="grid grid-cols-[2fr_1fr_1fr] gap-3 sm:gap-4">
+          <div>
+            <label className={label}>City</label>
+            <input
+              className={input}
+              autoComplete="address-level2"
+              value={form.city}
+              onChange={(e) => set("city", e.target.value)}
+            />
+          </div>
+          <div>
+            <label className={label}>State</label>
+            <input
+              className={input}
+              autoComplete="address-level1"
+              value={form.region}
+              onChange={(e) => set("region", e.target.value)}
+            />
+          </div>
+          <div>
+            <label className={label}>ZIP</label>
+            <input
+              className={input}
+              inputMode="numeric"
+              autoComplete="postal-code"
+              value={form.postalCode}
+              onChange={(e) => set("postalCode", e.target.value)}
+            />
+          </div>
+        </div>
         <div className="grid grid-cols-2 gap-4">
           <div>
             <label className={label}>Phone</label>
-            <input className={input} value={form.phone} onChange={(e) => set("phone", e.target.value)} />
+            <input
+              className={input}
+              type="tel"
+              autoComplete="tel"
+              value={form.phone}
+              onChange={(e) => set("phone", e.target.value)}
+            />
           </div>
           <div>
             <label className={label}>Sales tax %</label>
