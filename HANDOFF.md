@@ -22,7 +22,9 @@ this up next._
 - **Owner dashboard:** stats, menu editor (with photo controls), settings
   (hours/tax/template/capacity), customer list with consent-flagged CSV export, and a Help tab (`/dashboard/{slug}/help`) describing every admin behavior — update it in the same change when admin behavior changes.
 - **Counter tablet PWA:** installable, order columns, 86 board, pause ordering.
-- **Tests + CI:** 147 vitest cases over the pure modules (`npm test`); GitHub Actions runs lint + typecheck + test + build on every push/PR.
+- **Help, three audiences:** public `/help` (landing header/footer), diner `/t/{slug}/help` in the tenant theme (footer), owner `/dashboard/{slug}/help`. All hand-written prose — update alongside behavior changes.
+- **Demo disclaimers:** the reserve and checkout forms show "SMS provider not enabled" under their buttons while `isSmsConfigured()` is false; they vanish once the Twilio vars exist.
+- **Tests + CI:** 156 vitest cases over the pure modules (`npm test`); GitHub Actions runs lint + typecheck + test + build on every push/PR.
 - **Payments gate:** simulated-paid checkout only runs outside production (`ALLOW_SIMULATED_PAYMENTS=1` overrides for demos).
 
 ## Live URLs
@@ -44,7 +46,7 @@ this up next._
 | Pexels | Vercel env `PEXELS_API_KEY` | Preview + Production, sensitive; stock photos active |
 | Stripe | **not provisioned** (`STRIPE_SECRET_KEY` unset) | Marketplace terms not yet accepted: https://vercel.com/billys-projects-7712fade/~/integrations/accept-terms/stripe?source=cli — then `vercel integration add stripe --no-claim`. Adapter ready in `src/lib/payments.ts` (Connect Standard, 50¢ app fee); dev-only fallback = simulated-paid; production refuses orders until Stripe is live |
 | Resend (email) | **not provisioned** | Terms: .../accept-terms/resend — only messaging provider on the marketplace (no SMS) |
-| Twilio SMS | **no account** | Not on Vercel marketplace. Adapter in `src/lib/sms.ts` reads `TWILIO_ACCOUNT_SID/AUTH_TOKEN/FROM_NUMBER`; logs to stdout until set |
+| Twilio SMS | **no account** | Not on Vercel marketplace. Adapter in `src/lib/sms.ts` reads `TWILIO_ACCOUNT_SID`, `TWILIO_AUTH_TOKEN`, `TWILIO_FROM_NUMBER`; logs to stdout until set |
 | Cron auth | Vercel env `CRON_SECRET` | Production only, sensitive, generated 2026-09-06. Vercel sends it as the bearer token on `/api/cron/auto-reject`; the route fails closed in production without it |
 | Custom domain | **none** | Buy + add wildcard to project, set `ROOT_DOMAIN` env → tenant subdomains activate automatically (`src/lib/tenant.ts`, `src/proxy.ts`) |
 | Owner auth | **Clerk** (marketplace resource `clerk-violet-clock`, env `CLERK_SECRET_KEY` + `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`) | `restaurants.owner_user_id` = Clerk user id, `owner_email` snapshot. `src/proxy.ts` wraps `clerkMiddleware` and protects /start, /dashboard, /api/onboard, /api/export, /api/upload-photo. Legacy tenants (null owner) are claimed by the first signed-in visit that presents the old `?key=`. Sign-in methods (email code, Google) are configured in the Clerk dashboard: `vercel integration open clerk` |
