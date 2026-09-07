@@ -23,7 +23,7 @@ pending — see HANDOFF).
 |---|---|
 | Marketing / landing | `/` |
 | AI onboarding wizard | `/start` |
-| Tenant diner site | `/t/{slug}` (or `{slug}.$ROOT_DOMAIN` with a custom domain) |
+| Tenant diner site | `/t/{slug}` (or `{slug}.$ROOT_DOMAIN` with a custom domain) — redirects to `/order` when the owner enables "Send visitors straight to ordering" in Settings |
 | Ordering / status | `/t/{slug}/order`, `/t/{slug}/order/{id}` |
 | Reservations | `/t/{slug}/reserve` |
 | Sign in / sign up | `/sign-in`, `/sign-up` (Clerk: email code or Google) |
