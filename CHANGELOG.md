@@ -10,6 +10,17 @@ pushes (which deploys production) and creates the GitHub release from the
 matching section below. Write the next version's section before running the
 release.
 
+## [1.0.8] — 2026-09-07
+
+### Added
+
+- **Address in Settings.** Street, city, state, and ZIP are editable under
+  Settings next to the phone number; blank parts are stored as empty. Until
+  now the address could only be set at onboarding.
+- **Restaurant details on the order page.** Name, address, and phone (a
+  tap-to-call link) sit to the right of the "Order pickup" heading, stacked
+  under it on phones. Parts that are blank in Settings are left out.
+
 ## [1.0.7] — 2026-09-07
 
 ### Added
