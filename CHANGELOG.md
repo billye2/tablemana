@@ -10,6 +10,15 @@ pushes (which deploys production) and creates the GitHub release from the
 matching section below. Write the next version's section before running the
 release.
 
+## [1.0.4] — 2026-09-07
+
+### Added
+
+- **Demo disclaimer on the reservation form** — under the Book table button,
+  diners are told the SMS provider is not enabled and no confirmation text will
+  be sent (the booking is still recorded). It disappears on its own once the
+  Twilio env vars exist (`isSmsConfigured()` in `src/lib/sms.ts`).
+
 ## [1.0.3] — 2026-09-07
 
 ### Added
@@ -90,6 +99,7 @@ Baseline release stamping the first fully-live state under the tablemana name.
   from its own git-connected project, with the Neon resource verified as its
   database and the sensitive API keys re-entered.
 
+[1.0.4]: https://github.com/billye2/tablemana/releases/tag/v1.0.4
 [1.0.3]: https://github.com/billye2/tablemana/releases/tag/v1.0.3
 [1.0.2]: https://github.com/billye2/tablemana/releases/tag/v1.0.2
 [1.0.1]: https://github.com/billye2/tablemana/releases/tag/v1.0.1
