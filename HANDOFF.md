@@ -1,4 +1,4 @@
-# HANDOFF — tableside
+# HANDOFF — tablemana
 
 _Last updated 2026-08-15. State of the world for whoever (human or agent) picks
 this up next._
@@ -20,7 +20,7 @@ this up next._
   currently absent → silently skipped) + owner uploads to Vercel Blob from the
   menu editor (verified: upload → Blob → DB → renders).
 - **Owner dashboard:** stats, menu editor (with photo controls), settings
-  (hours/tax/template/capacity), customer list with consent-flagged CSV export.
+  (hours/tax/template/capacity), customer list with consent-flagged CSV export, and a Help tab (`/dashboard/{slug}/help`) describing every admin behavior — update it in the same change when admin behavior changes.
 - **Counter tablet PWA:** installable, order columns, 86 board, pause ordering.
 - **Tests + CI:** 147 vitest cases over the pure modules (`npm test`); GitHub Actions runs lint + typecheck + test + build on every push/PR.
 - **Payments gate:** simulated-paid checkout only runs outside production (`ALLOW_SIMULATED_PAYMENTS=1` overrides for demos).

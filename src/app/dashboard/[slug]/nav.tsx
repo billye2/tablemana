@@ -5,6 +5,7 @@ const TABS = [
   ["/menu", "Menu"],
   ["/settings", "Settings"],
   ["/customers", "Customers"],
+  ["/help", "Help"],
 ] as const;
 
 export function DashboardNav({

@@ -187,6 +187,13 @@ export function CounterClient({
             <p className="text-xs text-zinc-400">Counter</p>
           </div>
           <div className="flex items-center gap-2">
+            <a
+              href={`/dashboard/${slug}/help#counter`}
+              className="rounded-lg bg-zinc-800 px-3 py-2 text-sm font-semibold text-zinc-300"
+              title="How the counter works"
+            >
+              ?
+            </a>
             <button
               onClick={() => setTab("orders")}
               className={`rounded-lg px-3 py-2 text-sm font-semibold ${tab === "orders" ? "bg-zinc-100 text-zinc-950" : "bg-zinc-800"}`}

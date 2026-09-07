@@ -1,6 +1,6 @@
-# tableside
+# tablemana
 
-Multi-tenant SaaS for independent restaurants: upload a menu photo, get a live
+Multi-tenant SaaS for independent restaurants (formerly "tableside"): upload a menu photo, get a live
 website with online ordering (prepaid pickup) and reservations — flat pricing,
 no commissions, the restaurant owns its customer data.
 
@@ -28,6 +28,7 @@ pending — see HANDOFF).
 | Reservations | `/t/{slug}/reserve` |
 | Owner dashboard | `/dashboard/{slug}?key={ownerToken}` |
 | Counter tablet PWA | `/counter/{slug}?key={ownerToken}` |
+| Owner help | `/dashboard/{slug}/help` (linked from the dashboard tabs and the counter header) |
 
 ## Development
 
