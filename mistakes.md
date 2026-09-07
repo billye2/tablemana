@@ -5,6 +5,23 @@ the fix, and the lesson. Newest first.
 
 ---
 
+## 2026-09-07 — Sales tax field would not accept a decimal point
+
+- **Symptom:** Typing `8.25` into Settings → Sales tax % produced `8`, then
+  `82`, then `825`: the decimal point vanished the moment it was typed.
+- **Root cause:** The input was controlled by a number in form state and
+  every keystroke ran `parseFloat`. `parseFloat("8.")` is `8`, so React
+  re-rendered the field as `8` and the trailing dot was lost before the next
+  digit could land.
+- **Fix:** `src/app/dashboard/[slug]/settings/settings-form.tsx` keeps the
+  tax rate as a string while editing and parses it once on save, with a
+  0–30 range check that reports a message instead of silently saving 0.
+- **Lesson:** A controlled input that must accept partial numeric text
+  ("8.", "-", "") needs string state during editing. Parse at the boundary
+  (submit), never per keystroke.
+
+---
+
 ## 2026-09-07 — The diner site was built desktop-first, on a product whose diners are on phones
 
 - **Symptom:** On a phone, the pickup page put the cart and Pay button below

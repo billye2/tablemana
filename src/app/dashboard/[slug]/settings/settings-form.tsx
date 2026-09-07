@@ -34,6 +34,9 @@ export function SettingsForm({ slug, initial }: { slug: string; initial: Setting
       DAY_NAMES.map((_, i) => [String(i), rangesToText(initial.hours[String(i)] ?? [])]),
     ),
   );
+  // Kept as text while typing: a numeric state would turn "8." back into 8
+  // on every keystroke and swallow the decimal point.
+  const [taxText, setTaxText] = useState(String(initial.taxRatePercent));
   const [status, setStatus] = useState<string | null>(null);
   const [pending, startTransition] = useTransition();
 
@@ -42,6 +45,11 @@ export function SettingsForm({ slug, initial }: { slug: string; initial: Setting
 
   function save() {
     setStatus(null);
+    const taxRatePercent = Number(taxText.trim() === "" ? 0 : taxText);
+    if (!Number.isFinite(taxRatePercent) || taxRatePercent < 0 || taxRatePercent > 30) {
+      setStatus("Check the sales tax — use a number from 0 to 30, like 8.25.");
+      return;
+    }
     const hours: SettingsInput["hours"] = {};
     for (const [day, text] of Object.entries(hoursText)) {
       const ranges = textToRanges(text);
@@ -52,7 +60,7 @@ export function SettingsForm({ slug, initial }: { slug: string; initial: Setting
       hours[day] = ranges;
     }
     startTransition(async () => {
-      const result = await updateSettings(slug, { ...form, hours });
+      const result = await updateSettings(slug, { ...form, taxRatePercent, hours });
       setStatus(result.ok ? "Saved." : (result.error ?? "Something went wrong."));
     });
   }
@@ -133,8 +141,9 @@ export function SettingsForm({ slug, initial }: { slug: string; initial: Setting
             <input
               className={input}
               inputMode="decimal"
-              value={form.taxRatePercent}
-              onChange={(e) => set("taxRatePercent", parseFloat(e.target.value) || 0)}
+              placeholder="8.25"
+              value={taxText}
+              onChange={(e) => setTaxText(e.target.value)}
             />
           </div>
         </div>
